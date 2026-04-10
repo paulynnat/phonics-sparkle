@@ -2,7 +2,10 @@
  * demo.js — shared module for the publisher demo (Activity I & IV).
  *
  * Pages include this as:  <script type="module" src="./js/demo.js"></script>
- * The active unit is read from the URL querystring:  ?unit=r|t|z
+ *
+ * Supported query strings:
+ *   ?book=1&letter=r          (Book 1, letter r)
+ *   ?unit=r                   (legacy — treated as book=1&letter=r)
  *
  * Asset paths (relative to the GitHub Pages project root):
  *   images : /phonics-sparkle/assets/img/words/<word>.png
@@ -10,6 +13,7 @@
  */
 
 const BASE = "/phonics-sparkle";
+const PLACEHOLDER_IMG = `${BASE}/assets/img/placeholder.svg`;
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -17,9 +21,17 @@ function qs(name) {
   return new URLSearchParams(location.search).get(name);
 }
 
-async function loadUnits() {
-  const res = await fetch(`${BASE}/data/demo-units.json`, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to load demo-units.json (HTTP ${res.status})`);
+/** Resolve book and letter from the URL, supporting legacy ?unit= param. */
+function resolveParams() {
+  const unit   = (qs("unit")   || "").toLowerCase();
+  const letter = (qs("letter") || unit).toLowerCase();
+  const book   = parseInt(qs("book") || "1", 10) || 1;
+  return { book, letter };
+}
+
+async function loadBook(bookId) {
+  const res = await fetch(`${BASE}/data/book-${bookId}.json`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to load book-${bookId}.json (HTTP ${res.status})`);
   return res.json();
 }
 
@@ -49,10 +61,23 @@ function makeCard(word, onClickHandler) {
   btn.type = "button";
   btn.dataset.word = word;
 
-  btn.innerHTML =
-    `<div class="word">${word}</div>` +
-    `<img class="pic" alt="${word}" src="${img}" loading="eager" />`;
+  const imgEl = document.createElement("img");
+  imgEl.className = "pic";
+  imgEl.alt = word;
+  imgEl.src = img;
+  imgEl.loading = "eager";
+  // Fallback: replace broken image with placeholder
+  imgEl.onerror = function () {
+    this.onerror = null;
+    this.src = PLACEHOLDER_IMG;
+  };
 
+  const wordEl = document.createElement("div");
+  wordEl.className = "word";
+  wordEl.textContent = word;
+
+  btn.appendChild(wordEl);
+  btn.appendChild(imgEl);
   btn.addEventListener("click", onClickHandler);
   return btn;
 }
@@ -79,27 +104,35 @@ function currentPage() {
 // ── main ─────────────────────────────────────────────────────────────────────
 
 (async () => {
-  const unitId = (qs("unit") || "").toLowerCase();
-  if (!unitId) {
-    throw new Error('Missing ?unit= query parameter. Use ?unit=r, ?unit=t, or ?unit=z.');
+  const { book, letter } = resolveParams();
+  if (!letter) {
+    throw new Error('Missing letter parameter. Use ?book=1&letter=r or legacy ?unit=r.');
   }
 
-  const { units } = await loadUnits();
-  const unit = units.find(u => u.unitId === unitId);
-  if (!unit) throw new Error(`Unknown unit "${unitId}". Expected r, t, or z.`);
+  const bookData = await loadBook(book);
+  const letterData = bookData.letters?.[letter];
+  if (!letterData) {
+    throw new Error(`Letter "${letter}" not found in book ${book}.`);
+  }
 
-  // ── Update navigation links to preserve the active unit ──────────────────
+  const words = letterData.words;
+  const labelText = `Letter ${letter.toUpperCase()}`;
+
+  // Build the query string to preserve on navigation links
+  const navQuery = `?book=${book}&letter=${letter}`;
+
+  // ── Update navigation links ──────────────────────────────────────────────
   const toA4 = document.getElementById("toA4");
-  if (toA4) toA4.href = `./activity4.html?unit=${unitId}`;
+  if (toA4) toA4.href = `./activity4.html${navQuery}`;
 
   const toA1 = document.getElementById("toA1");
-  if (toA1) toA1.href = `./activity1.html?unit=${unitId}`;
+  if (toA1) toA1.href = `./activity1.html${navQuery}`;
 
   // ── Update page title ────────────────────────────────────────────────────
   const titleEl = document.getElementById("title");
   if (titleEl) {
     const actLabel = currentPage() === "a1" ? "Activity I" : "Activity IV";
-    titleEl.textContent = `${unit.label} \u2014 ${actLabel}`;
+    titleEl.textContent = `${labelText} \u2014 ${actLabel}`;
   }
 
   // ── Render cards ─────────────────────────────────────────────────────────
@@ -108,7 +141,7 @@ function currentPage() {
 
   if (currentPage() === "a1") {
     // Activity I: every card click MUST play that word's audio.
-    unit.words.forEach(word => {
+    words.forEach(word => {
       cardsEl.appendChild(makeCard(word, async () => {
         try {
           await playAudio(word);
@@ -125,14 +158,15 @@ function currentPage() {
 
   if (currentPage() === "a4") {
     // Activity IV: show prompt, correct → highlight + audio; incorrect → shake, no audio.
+    const activity4 = bookData.activity4?.[letter];
     const promptEl = document.getElementById("prompt");
     if (promptEl) {
-      promptEl.textContent = unit.activity4?.prompt ?? "Parent reads aloud.";
+      promptEl.textContent = activity4?.prompt ?? "Parent reads aloud.";
     }
 
-    const answer = (unit.activity4?.answer ?? "").toLowerCase();
+    const answer = (activity4?.answer ?? "").toLowerCase();
 
-    unit.words.forEach(word => {
+    words.forEach(word => {
       cardsEl.appendChild(makeCard(word, async e => {
         clearFeedback(cardsEl);
 
