@@ -9,27 +9,47 @@
 <body>
   <main class="container">
     <h1>Phonics Sparkle</h1>
-    <p class="muted">Publisher demo &mdash; choose a letter to begin.</p>
+    <p class="muted">Publisher demo &mdash; Book 1 &mdash; choose a letter to begin.</p>
 
-    <section class="card">
-      <div class="row">
-        <a class="btn" href="./activity1.html?unit=r">Letter R &rarr; Activity I</a>
-        <a class="btn secondary" href="./activity4.html?unit=r">Letter R &rarr; Activity IV</a>
-      </div>
-      <div class="row">
-        <a class="btn" href="./activity1.html?unit=t">Letter T &rarr; Activity I</a>
-        <a class="btn secondary" href="./activity4.html?unit=t">Letter T &rarr; Activity IV</a>
-      </div>
-      <div class="row">
-        <a class="btn" href="./activity1.html?unit=z">Letter Z &rarr; Activity I</a>
-        <a class="btn secondary" href="./activity4.html?unit=z">Letter Z &rarr; Activity IV</a>
+    <section class="letter-grid-section card">
+      <div class="letter-grid" id="letterGrid">
+        <!-- Populated by inline script below -->
       </div>
     </section>
 
     <p class="muted small">
       <strong>Activity I:</strong> tap a flashcard to hear the word.<br />
-      <strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.
+      <strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.<br />
+      <span class="coming-soon-note">Letters shown as &ldquo;Coming soon&rdquo; will be unlocked as assets are added.</span>
     </p>
   </main>
+
+  <script>
+    (function () {
+      var enabled = ['r', 't', 'z'];
+      var grid = document.getElementById('letterGrid');
+      for (var i = 0; i < 26; i++) {
+        var letter = String.fromCharCode(97 + i); // a–z
+        var isEnabled = enabled.indexOf(letter) !== -1;
+        var tile = document.createElement('div');
+        tile.className = 'letter-tile' + (isEnabled ? ' enabled' : ' disabled');
+
+        if (isEnabled) {
+          tile.innerHTML =
+            '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
+            '<div class="letter-links">' +
+            '<a class="btn btn-sm" href="./activity1.html?book=1&amp;letter=' + letter + '">Act I</a>' +
+            '<a class="btn btn-sm secondary" href="./activity4.html?book=1&amp;letter=' + letter + '">Act IV</a>' +
+            '</div>';
+        } else {
+          tile.innerHTML =
+            '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
+            '<span class="letter-soon">Coming soon</span>';
+        }
+
+        grid.appendChild(tile);
+      }
+    })();
+  </script>
 </body>
 </html>
