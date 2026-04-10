@@ -110,3 +110,76 @@ h1 { margin: 0 0 10px; }
   75%  { transform: translateX(-5px); }
   100% { transform: translateX(0); }
 }
+
+/* ── A–Z letter picker ─────────────────────────────────────────────────────── */
+
+.letter-grid-section { padding: 16px; }
+
+.letter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.letter-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 12px;
+  padding: 10px 6px;
+  border: 1px solid var(--stroke);
+  min-height: 90px;
+  text-align: center;
+}
+
+.letter-label {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.letter-tile.enabled {
+  background: #121a33;
+  border-color: #2a5bff;
+}
+
+.letter-tile.enabled .letter-label {
+  color: var(--text);
+}
+
+.letter-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.letter-tile.disabled {
+  background: #0d1228;
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.letter-tile.disabled .letter-label {
+  color: var(--muted);
+}
+
+.letter-soon {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.coming-soon-note {
+  color: var(--muted);
+  font-size: 12px;
+}
