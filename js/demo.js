@@ -23,9 +23,10 @@ function qs(name) {
 
 /** Resolve book and letter from the URL, supporting legacy ?unit= param. */
 function resolveParams() {
-  const unit   = (qs("unit")   || "").toLowerCase();
-  const letter = (qs("letter") || unit).toLowerCase();
-  const book   = parseInt(qs("book") || "1", 10) || 1;
+  const unit    = (qs("unit")   || "").toLowerCase();
+  const letter  = (qs("letter") || unit).toLowerCase();
+  const bookRaw = parseInt(qs("book") || "1", 10);
+  const book    = (Number.isFinite(bookRaw) && bookRaw >= 1) ? bookRaw : 1;
   return { book, letter };
 }
 
