@@ -1,0 +1,31 @@
+{
+  "units": [
+    {
+      "unitId": "r",
+      "label": "Letter R",
+      "words": ["rat", "rag", "ram"],
+      "activity4": {
+        "prompt": "Parent reads: \u201cRim rom\u2026 pick rat.\u201d",
+        "answer": "rat"
+      }
+    },
+    {
+      "unitId": "t",
+      "label": "Letter T",
+      "words": ["tab", "tea", "ten"],
+      "activity4": {
+        "prompt": "Parent reads: \u201cTeb tob\u2026 pick ten.\u201d",
+        "answer": "ten"
+      }
+    },
+    {
+      "unitId": "z",
+      "label": "Letter Z",
+      "words": ["zip", "zig", "zap"],
+      "activity4": {
+        "prompt": "Parent reads: \u201cZim zam\u2026 pick zip.\u201d",
+        "answer": "zip"
+      }
+    }
+  ]
+}
