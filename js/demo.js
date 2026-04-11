@@ -8,12 +8,17 @@
  *   ?unit=r                   (legacy — treated as book=1&letter=r)
  *
  * Asset paths (relative to the GitHub Pages project root):
- *   images : /phonics-sparkle/assets/img/words/<word>.png
- *   audio  : /phonics-sparkle/assets/audio/words/<word>.mp3
+ *   images : /phonics-sparkle/DEST_IMAGE_FOLDER/<word>.png
+ *   audio  : /phonics-sparkle/DEST_AUDIO_FOLDER/<word>.mp3  (or .wav for some words)
  */
 
 const BASE = "/phonics-sparkle";
-const PLACEHOLDER_IMG = `${BASE}/assets/img/placeholder.svg`;
+
+// Words whose audio file uses .wav instead of .mp3
+const AUDIO_WAV_WORDS = new Set(["fan", "walk"]);
+
+// Inline SVG placeholder shown when an image fails to load
+const PLACEHOLDER_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='%231a2340' rx='8'/%3E%3Ctext x='40' y='48' font-size='28' text-anchor='middle' fill='%23445' font-family='sans-serif'%3E%3F%3C/text%3E%3C/svg%3E";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -37,9 +42,10 @@ async function loadBook(bookId) {
 }
 
 function assetPaths(word) {
+  const audioExt = AUDIO_WAV_WORDS.has(word) ? "wav" : "mp3";
   return {
-    img:   `${BASE}/assets/img/words/${word}.png`,
-    audio: `${BASE}/assets/audio/words/${word}.mp3`,
+    img:   `${BASE}/DEST_IMAGE_FOLDER/${word}.png`,
+    audio: `${BASE}/DEST_AUDIO_FOLDER/${word}.${audioExt}`,
   };
 }
 
@@ -67,8 +73,9 @@ function makeCard(word, onClickHandler) {
   imgEl.alt = word;
   imgEl.src = img;
   imgEl.loading = "eager";
-  // Fallback: replace broken image with placeholder
+  // Fallback: replace broken image with placeholder and warn
   imgEl.onerror = function () {
+    console.warn(`[Phonics Sparkle] Image not found: ${img}`);
     this.onerror = null;
     this.src = PLACEHOLDER_IMG;
   };
@@ -148,9 +155,11 @@ function currentPage() {
           await playAudio(word);
         } catch (err) {
           console.error("Audio playback error:", err);
+          const { audio } = assetPaths(word);
+          console.warn(`[Phonics Sparkle] Audio not found or could not play: ${audio}`);
           alert(
             `Audio could not be played for "${word}".\n` +
-            `Expected file: ${BASE}/assets/audio/words/${word}.mp3`
+            `Expected file: ${audio}`
           );
         }
       }));

@@ -26,29 +26,43 @@
 
   <script>
     (function () {
-      var enabled = ['r', 't', 'z'];
+      var BASE = '/phonics-sparkle';
       var grid = document.getElementById('letterGrid');
-      for (var i = 0; i < 26; i++) {
-        var letter = String.fromCharCode(97 + i); // a–z
-        var isEnabled = enabled.indexOf(letter) !== -1;
-        var tile = document.createElement('div');
-        tile.className = 'letter-tile' + (isEnabled ? ' enabled' : ' disabled');
 
-        if (isEnabled) {
-          tile.innerHTML =
-            '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
-            '<div class="letter-links">' +
-            '<a class="btn btn-sm" href="./activity1.html?book=1&amp;letter=' + letter + '">Act I</a>' +
-            '<a class="btn btn-sm secondary" href="./activity4.html?book=1&amp;letter=' + letter + '">Act IV</a>' +
-            '</div>';
-        } else {
-          tile.innerHTML =
-            '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
-            '<span class="letter-soon">Coming soon</span>';
+      function buildGrid(enabled) {
+        for (var i = 0; i < 26; i++) {
+          var letter = String.fromCharCode(97 + i); // a–z
+          var isEnabled = enabled.indexOf(letter) !== -1;
+          var tile = document.createElement('div');
+          tile.className = 'letter-tile' + (isEnabled ? ' enabled' : ' disabled');
+
+          if (isEnabled) {
+            tile.innerHTML =
+              '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
+              '<div class="letter-links">' +
+              '<a class="btn btn-sm" href="./activity1.html?book=1&amp;letter=' + letter + '">Act I</a>' +
+              '<a class="btn btn-sm secondary" href="./activity4.html?book=1&amp;letter=' + letter + '">Act IV</a>' +
+              '</div>';
+          } else {
+            tile.innerHTML =
+              '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
+              '<span class="letter-soon">Coming soon</span>';
+          }
+
+          grid.appendChild(tile);
         }
-
-        grid.appendChild(tile);
       }
+
+      fetch(BASE + '/data/book-1.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var enabled = Object.keys(data.letters || {});
+          buildGrid(enabled);
+        })
+        .catch(function (err) {
+          console.warn('[Phonics Sparkle] Could not load book-1.json, no letters enabled.', err);
+          buildGrid([]);
+        });
     })();
   </script>
 </body>
