@@ -2,11 +2,13 @@
   "bookId": 1,
   "activities": ["I", "IV"],
   "letters": {
+    "a": { "words": ["apple", "ant", "axe"] },
     "r": { "words": ["rat", "rag", "ram"] },
     "t": { "words": ["tab", "tea", "ten"] },
     "z": { "words": ["zip", "zig", "zap"] }
   },
   "activity4": {
+    "a": { "prompt": "Parent reads: “Aim am… pick ant.”", "answer": "ant" },
     "r": { "prompt": "Parent reads: \u201cRim rom\u2026 pick rat.\u201d", "answer": "rat" },
     "t": { "prompt": "Parent reads: \u201cTeb tob\u2026 pick ten.\u201d", "answer": "ten" },
     "z": { "prompt": "Parent reads: \u201cZim zam\u2026 pick zip.\u201d", "answer": "zip" }
