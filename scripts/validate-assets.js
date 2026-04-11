@@ -63,9 +63,10 @@ const missingImg = [];
 const missingAud = [];
 
 [...allWords].sort().forEach(word => {
-  const imgFile = path.join(IMG_DIR, `${word}.png`);
+  const imgPng  = path.join(IMG_DIR, `${word}.png`);
+  const imgSvg  = path.join(IMG_DIR, `${word}.svg`);
   const audFile = path.join(AUD_DIR, `${word}.mp3`);
-  const hasImg  = fs.existsSync(imgFile);
+  const hasImg  = fs.existsSync(imgPng) || fs.existsSync(imgSvg);
   const hasAud  = fs.existsSync(audFile);
 
   if (!hasImg) missingImg.push(word);

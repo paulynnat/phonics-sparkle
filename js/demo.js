@@ -38,8 +38,9 @@ async function loadBook(bookId) {
 
 function assetPaths(word) {
   return {
-    img:   `${BASE}/assets/img/words/${word}.png`,
-    audio: `${BASE}/assets/audio/words/${word}.mp3`,
+    img:     `${BASE}/assets/img/words/${word}.png`,
+    imgSvg:  `${BASE}/assets/img/words/${word}.svg`,
+    audio:   `${BASE}/assets/audio/words/${word}.mp3`,
   };
 }
 
@@ -55,7 +56,7 @@ async function playAudio(word) {
 }
 
 function makeCard(word, onClickHandler) {
-  const { img } = assetPaths(word);
+  const { img, imgSvg } = assetPaths(word);
 
   const btn = document.createElement("button");
   btn.className = "flashcard";
@@ -67,10 +68,19 @@ function makeCard(word, onClickHandler) {
   imgEl.alt = word;
   imgEl.src = img;
   imgEl.loading = "eager";
-  // Fallback: replace broken image with placeholder
+  // Fallback chain: .png → .svg placeholder → generic placeholder
   imgEl.onerror = function () {
-    this.onerror = null;
-    this.src = PLACEHOLDER_IMG;
+    if (this.src !== imgSvg && !this.src.endsWith("placeholder.svg")) {
+      this.onerror = null;
+      this.onerror = function () {
+        this.onerror = null;
+        this.src = PLACEHOLDER_IMG;
+      };
+      this.src = imgSvg;
+    } else {
+      this.onerror = null;
+      this.src = PLACEHOLDER_IMG;
+    }
   };
 
   const wordEl = document.createElement("div");
