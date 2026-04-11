@@ -1,31 +1,56 @@
 {
   "units": [
-    {
-      "unitId": "r",
-      "label": "Letter R",
-      "words": ["rat", "rag", "ram"],
-      "activity4": {
-        "prompt": "Parent reads: \u201cRim rom\u2026 pick rat.\u201d",
-        "answer": "rat"
-      }
-    },
-    {
-      "unitId": "t",
-      "label": "Letter T",
-      "words": ["tab", "tea", "ten"],
-      "activity4": {
-        "prompt": "Parent reads: \u201cTeb tob\u2026 pick ten.\u201d",
-        "answer": "ten"
-      }
-    },
-    {
-      "unitId": "z",
-      "label": "Letter Z",
-      "words": ["zip", "zig", "zap"],
-      "activity4": {
-        "prompt": "Parent reads: \u201cZim zam\u2026 pick zip.\u201d",
-        "answer": "zip"
-      }
-    }
+    { "unitId": "a", "label": "Letter A", "words": ["ant", "apple", "axe"],
+      "activity4": { "prompt": "Parent reads: \u201cAm am\u2026 pick ant.\u201d", "answer": "ant" } },
+    { "unitId": "b", "label": "Letter B", "words": ["bat", "bag", "bus"],
+      "activity4": { "prompt": "Parent reads: \u201cBim bam\u2026 pick bat.\u201d", "answer": "bat" } },
+    { "unitId": "c", "label": "Letter C", "words": ["cat", "cap", "cup"],
+      "activity4": { "prompt": "Parent reads: \u201cCim cam\u2026 pick cat.\u201d", "answer": "cat" } },
+    { "unitId": "d", "label": "Letter D", "words": ["dog", "dot", "dig"],
+      "activity4": { "prompt": "Parent reads: \u201cDim dom\u2026 pick dog.\u201d", "answer": "dog" } },
+    { "unitId": "e", "label": "Letter E", "words": ["egg", "elk", "elf"],
+      "activity4": { "prompt": "Parent reads: \u201cEm em\u2026 pick egg.\u201d", "answer": "egg" } },
+    { "unitId": "f", "label": "Letter F", "words": ["fan", "fig", "fox"],
+      "activity4": { "prompt": "Parent reads: \u201cFim fam\u2026 pick fan.\u201d", "answer": "fan" } },
+    { "unitId": "g", "label": "Letter G", "words": ["gas", "gum", "gap"],
+      "activity4": { "prompt": "Parent reads: \u201cGim gam\u2026 pick gas.\u201d", "answer": "gas" } },
+    { "unitId": "h", "label": "Letter H", "words": ["hat", "hen", "hop"],
+      "activity4": { "prompt": "Parent reads: \u201cHim ham\u2026 pick hat.\u201d", "answer": "hat" } },
+    { "unitId": "i", "label": "Letter I", "words": ["ink", "ill", "itch"],
+      "activity4": { "prompt": "Parent reads: \u201cIm im\u2026 pick ink.\u201d", "answer": "ink" } },
+    { "unitId": "j", "label": "Letter J", "words": ["jam", "jug", "jet"],
+      "activity4": { "prompt": "Parent reads: \u201cJim jam\u2026 pick jet.\u201d", "answer": "jet" } },
+    { "unitId": "k", "label": "Letter K", "words": ["kit", "kid", "key"],
+      "activity4": { "prompt": "Parent reads: \u201cKim kam\u2026 pick kit.\u201d", "answer": "kit" } },
+    { "unitId": "l", "label": "Letter L", "words": ["lap", "lip", "log"],
+      "activity4": { "prompt": "Parent reads: \u201cLim lam\u2026 pick lap.\u201d", "answer": "lap" } },
+    { "unitId": "m", "label": "Letter M", "words": ["map", "mud", "mop"],
+      "activity4": { "prompt": "Parent reads: \u201cMim mam\u2026 pick map.\u201d", "answer": "map" } },
+    { "unitId": "n", "label": "Letter N", "words": ["nap", "net", "nod"],
+      "activity4": { "prompt": "Parent reads: \u201cNim nam\u2026 pick nap.\u201d", "answer": "nap" } },
+    { "unitId": "o", "label": "Letter O", "words": ["ox", "owl", "orange", "oat"],
+      "activity4": { "prompt": "Parent reads: \u201cOm om\u2026 pick ox.\u201d", "answer": "ox" } },
+    { "unitId": "p", "label": "Letter P", "words": ["pan", "pit", "pop"],
+      "activity4": { "prompt": "Parent reads: \u201cPim pam\u2026 pick pan.\u201d", "answer": "pan" } },
+    { "unitId": "q", "label": "Letter Q", "words": ["queen", "quack", "quilt", "quiz", "quiet"],
+      "activity4": { "prompt": "Parent reads: \u201cQu qu\u2026 pick queen.\u201d", "answer": "queen" } },
+    { "unitId": "r", "label": "Letter R", "words": ["rat", "rag", "ram"],
+      "activity4": { "prompt": "Parent reads: \u201cRim rom\u2026 pick rat.\u201d", "answer": "rat" } },
+    { "unitId": "s", "label": "Letter S", "words": ["sat", "sun", "sip"],
+      "activity4": { "prompt": "Parent reads: \u201cSim sam\u2026 pick sat.\u201d", "answer": "sat" } },
+    { "unitId": "t", "label": "Letter T", "words": ["tab", "tea", "ten"],
+      "activity4": { "prompt": "Parent reads: \u201cTeb tob\u2026 pick ten.\u201d", "answer": "ten" } },
+    { "unitId": "u", "label": "Letter U", "words": ["up", "us"],
+      "activity4": { "prompt": "Parent reads: \u201cUm um\u2026 pick up.\u201d", "answer": "up" } },
+    { "unitId": "v", "label": "Letter V", "words": ["van", "vet", "vat"],
+      "activity4": { "prompt": "Parent reads: \u201cVim vam\u2026 pick van.\u201d", "answer": "van" } },
+    { "unitId": "w", "label": "Letter W", "words": ["web", "wet", "wax"],
+      "activity4": { "prompt": "Parent reads: \u201cWim wam\u2026 pick web.\u201d", "answer": "web" } },
+    { "unitId": "x", "label": "Letter X", "words": ["xylophone", "x-ray"],
+      "activity4": { "prompt": "Parent reads: \u201cX x\u2026 pick xylophone.\u201d", "answer": "xylophone" } },
+    { "unitId": "y", "label": "Letter Y", "words": ["yam", "yes", "yak"],
+      "activity4": { "prompt": "Parent reads: \u201cYim yam\u2026 pick yak.\u201d", "answer": "yak" } },
+    { "unitId": "z", "label": "Letter Z", "words": ["zip", "zig", "zap"],
+      "activity4": { "prompt": "Parent reads: \u201cZim zam\u2026 pick zip.\u201d", "answer": "zip" } }
   ]
 }

@@ -7,8 +7,8 @@ Phonics Sparkle is designed to make learning phonics fun, interactive, and visua
 
 ## 🌟 Key Features
 - **Unit‑based progression**: Each letter introduces recognition, writing, playful activity, and CVC word practice.  
-- **Interactive Activities (Demo Units R, T, Z)**:  
-  - **Activity I**: 3 CVC word flashcards per letter (word + image + audio).  
+- **Interactive Activities (All 26 Letters, A–Z)**:  
+  - **Activity I**: Word flashcards per letter (word + image + audio).  
   - **Activity IV**: Parent reads a nonsense sentence aloud; child chooses the correct word from Activity I.  
 - **Playful Learning**: Child‑friendly themes that encourage exploration and creativity.  
 - **Parent‑Focused Guides**: Clear instructions to support at‑home phonics practice.  
@@ -16,8 +16,25 @@ Phonics Sparkle is designed to make learning phonics fun, interactive, and visua
 
 ## 🚀 Getting Started
 1. Clone or download the repo.  
-2. Open the app build in your preferred environment.  
-3. Explore the demo activities for Units R, T, and Z.  
+2. Open `index.html` in a browser (or serve via GitHub Pages / any static server).  
+3. Explore activities for any letter A–Z.  
+
+## 🔍 Validating Assets Locally
+Requires [Node.js](https://nodejs.org/) (LTS recommended).
+
+```bash
+node scripts/validate-assets.js
+```
+
+This checks:
+- All JSON data files in `data/` parse without errors.
+- Every word in `data/book-1.json` has a matching `.png` image under `assets/img/words/` and a `.mp3` audio file under `assets/audio/words/`.
+- All Activity IV answers exist in their corresponding word lists.
+- All 26 letters (a–z) are present in `book-1.json`.
+
+### Replacing placeholder assets with real audio/images
+The placeholder image and audio files can be replaced with real assets at any time.
+Simply copy the real files (named `<word>.png` and `<word>.mp3`) into the appropriate folders and re-run the validation script to confirm coverage.
 
 ## 🛡 Responsible AI Guidelines
 Because Phonics Sparkle is designed for children, we follow strict Responsible AI principles:
