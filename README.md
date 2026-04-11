@@ -7,17 +7,51 @@ Phonics Sparkle is designed to make learning phonics fun, interactive, and visua
 
 ## 🌟 Key Features
 - **Unit‑based progression**: Each letter introduces recognition, writing, playful activity, and CVC word practice.  
-- **Interactive Activities (Demo Units R, T, Z)**:  
-  - **Activity I**: 3 CVC word flashcards per letter (word + image + audio).  
+- **Interactive Activities (All 26 Letters)**:  
+  - **Activity I**: flashcards per letter (word + image + audio).  
   - **Activity IV**: Parent reads a nonsense sentence aloud; child chooses the correct word from Activity I.  
 - **Playful Learning**: Child‑friendly themes that encourage exploration and creativity.  
 - **Parent‑Focused Guides**: Clear instructions to support at‑home phonics practice.  
 - **Engagement Boost**: Activities that combine reading, recognition, and coloring for hands‑on fun.  
 
+## 📁 Asset Locations
+All word assets live in two root‑level folders:
+
+| Folder | Contents | Naming convention |
+|---|---|---|
+| `DEST_IMAGE_FOLDER/` | Word illustration images | `<word>.png` (e.g. `rat.png`) |
+| `DEST_AUDIO_FOLDER/` | Word pronunciation audio | `<word>.mp3` (or `.wav` for `fan` and `walk`) |
+
+**Rules:**
+- File names are lowercase and match the word exactly (e.g. `bee.png`, `bee.mp3`).
+- Most audio files use `.mp3`; `fan.wav` and `walk.wav` are the exceptions and are handled automatically by the app.
+- Word lists and letter–word mappings are defined in `data/book-1.json`. Adding a new letter entry there will automatically unlock that letter on the home page.
+
+## 🗂 Data Files
+- **`data/book-1.json`** — Defines all letter entries (words list) and Activity IV prompts/answers for Book 1. The home page reads this file at load time to determine which letters are enabled.
+
 ## 🚀 Getting Started
 1. Clone or download the repo.  
-2. Open the app build in your preferred environment.  
-3. Explore the demo activities for Units R, T, and Z.  
+2. Serve the repo root with any static HTTP server (required for `fetch()` to load JSON), e.g.:  
+   ```bash
+   npx serve .
+   # or
+   python -m http.server 8080
+   ```
+3. Open `http://localhost:<port>/` and explore all 26 letter activities.
+
+> **GitHub Pages**: the site is published at https://paulynnat.github.io/phonics-sparkle/ — all letters are now unlocked.
+
+## 🔍 Validating Assets
+To check that every word in `data/book-1.json` has a matching image and audio file, compare the word list in `book-1.json` against the files in `DEST_IMAGE_FOLDER/` and `DEST_AUDIO_FOLDER/`. For example:
+
+```bash
+# List all words defined in the JSON
+node -e "const d=require('./data/book-1.json'); Object.values(d.letters).forEach(l=>l.words.forEach(w=>console.log(w)))"
+
+# Compare against image files
+ls DEST_IMAGE_FOLDER/
+```
 
 ## 🛡 Responsible AI Guidelines
 Because Phonics Sparkle is designed for children, we follow strict Responsible AI principles:
