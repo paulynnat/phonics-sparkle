@@ -11,3 +11,4 @@
     "t": { "prompt": "Parent reads: \u201cTeb tob\u2026 pick ten.\u201d", "answer": "ten" },
     "z": { "prompt": "Parent reads: \u201cZim zam\u2026 pick zip.\u201d", "answer": "zip" }
   }
+}

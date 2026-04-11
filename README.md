@@ -14,6 +14,26 @@ Phonics Sparkle is designed to make learning phonics fun, interactive, and visua
 - **Parent‑Focused Guides**: Clear instructions to support at‑home phonics practice.  
 - **Engagement Boost**: Activities that combine reading, recognition, and coloring for hands‑on fun.  
 
+## 📁 Asset Folders
+
+Word images and audio are stored in two top-level folders:
+
+| Folder | Contents | Naming convention |
+|--------|----------|-------------------|
+| `DEST_IMAGE_FOLDER/` | One image per word | `<word>.png` (also accepts `.jpg`, `.jpeg`, `.webp`) |
+| `DEST_AUDIO_FOLDER/` | One audio clip per word | `<word>.mp3` (also accepts `.wav`, `.m4a`) |
+
+### Adding new words
+1. Place `<word>.png` in `DEST_IMAGE_FOLDER/`.
+2. Place `<word>.mp3` (or `.wav`) in `DEST_AUDIO_FOLDER/`.
+3. Add the word to the appropriate letter entry in `data/book-<n>.json`.
+4. Run the asset validation script to confirm nothing is missing:
+   ```bash
+   node scripts/validate-assets.js
+   ```
+
+> **Note:** The legacy `assets/` folder is kept for backward-compatibility (e.g., the placeholder SVG) but word assets should no longer be placed there.
+
 ## 🚀 Getting Started
 1. Clone or download the repo.  
 2. Open the app build in your preferred environment.  

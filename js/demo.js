@@ -8,12 +8,19 @@
  *   ?unit=r                   (legacy — treated as book=1&letter=r)
  *
  * Asset paths (relative to the GitHub Pages project root):
- *   images : /phonics-sparkle/assets/img/words/<word>.png
- *   audio  : /phonics-sparkle/assets/audio/words/<word>.mp3
+ *   images : /phonics-sparkle/DEST_IMAGE_FOLDER/<word>.png
+ *   audio  : /phonics-sparkle/DEST_AUDIO_FOLDER/<word>.mp3  (falls back to .wav, .m4a)
  */
 
 const BASE = "/phonics-sparkle";
 const PLACEHOLDER_IMG = `${BASE}/assets/img/placeholder.svg`;
+
+/** Root paths for the new asset folders. */
+const IMG_BASE   = `${BASE}/DEST_IMAGE_FOLDER`;
+const AUDIO_BASE = `${BASE}/DEST_AUDIO_FOLDER`;
+
+/** Audio extensions to try in order (primary → fallbacks). */
+const AUDIO_EXTS = ["mp3", "wav", "m4a"];
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -38,19 +45,52 @@ async function loadBook(bookId) {
 
 function assetPaths(word) {
   return {
-    img:   `${BASE}/assets/img/words/${word}.png`,
-    audio: `${BASE}/assets/audio/words/${word}.mp3`,
+    img:   `${IMG_BASE}/${word}.png`,
+    // Primary audio URL (mp3); resolveAudioUrl will try fallback extensions if needed.
+    audio: `${AUDIO_BASE}/${word}.mp3`,
   };
+}
+
+/**
+ * Probe each audio extension in order and return the first URL that the server
+ * confirms exists (HTTP 2xx HEAD response).  Logs a warning for each miss so
+ * missing assets are easy to spot in the browser console.
+ * Caches the resolved URL per word to avoid repeated network probes on replay.
+ * Returns null when no extension resolves.
+ */
+const _audioUrlCache = new Map();
+async function resolveAudioUrl(word) {
+  if (_audioUrlCache.has(word)) return _audioUrlCache.get(word);
+  for (const ext of AUDIO_EXTS) {
+    const url = `${AUDIO_BASE}/${word}.${ext}`;
+    try {
+      const res = await fetch(url, { method: "HEAD" });
+      if (res.ok) {
+        _audioUrlCache.set(word, url);
+        return url;
+      }
+      console.warn(`[phonics-sparkle] Asset not found (${res.status}): ${url}`);
+    } catch (err) {
+      console.warn(`[phonics-sparkle] Asset fetch error for ${url}:`, err.message);
+    }
+  }
+  _audioUrlCache.set(word, null);
+  return null;
 }
 
 // One shared Audio instance avoids overlapping playback.
 const player = new Audio();
 
 async function playAudio(word) {
-  const { audio } = assetPaths(word);
+  const url = await resolveAudioUrl(word);
+  if (!url) {
+    const tried = AUDIO_EXTS.map(e => `${AUDIO_BASE}/${word}.${e}`).join(", ");
+    console.warn(`[phonics-sparkle] No audio found for "${word}". Tried: ${tried}`);
+    throw new Error(`No audio file found for "${word}"`);
+  }
   player.pause();
   player.currentTime = 0;
-  player.src = audio;
+  player.src = url;
   return player.play();
 }
 
@@ -150,7 +190,7 @@ function currentPage() {
           console.error("Audio playback error:", err);
           alert(
             `Audio could not be played for "${word}".\n` +
-            `Expected file: ${BASE}/assets/audio/words/${word}.mp3`
+            `Looked in: ${AUDIO_EXTS.map(e => `${AUDIO_BASE}/${word}.${e}`).join(", ")}`
           );
         }
       }));
