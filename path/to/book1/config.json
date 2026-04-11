@@ -1,0 +1,13 @@
+{
+  "enabled_letters": ["r", "t", "z", "a"],
+  "activities": {
+    "I": {
+      "letter": "A",
+      "words": ["apple", "ant", "axe"]
+    },
+    "IV": {
+      "letter": "A",
+      "words": ["apple", "ant", "axe"]
+    }
+  }
+}
