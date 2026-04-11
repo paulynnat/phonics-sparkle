@@ -1,5 +1,5 @@
 /**
- * demo.js — shared module for the publisher demo (Activity I & IV).
+ * demo.js — shared module for Activity I & IV.
  *
  * Pages include this as:  <script type="module" src="./js/demo.js"></script>
  *
