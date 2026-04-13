@@ -183,3 +183,84 @@ h1 { margin: 0 0 10px; }
   color: var(--muted);
   font-size: 12px;
 }
+
+/* ── Book selector + Responsible AI (matches existing site theme) ─────────── */
+
+.book-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 12px;
+}
+
+.book-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--stroke);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  transition: transform 60ms ease, background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.book-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.book-btn:active {
+  transform: translateY(1px);
+}
+
+.book-btn.active {
+  border-color: #2a5bff;
+  background: rgba(42, 91, 255, 0.12);
+  box-shadow: 0 0 0 2px rgba(42, 91, 255, 0.18) inset;
+}
+
+.instructions {
+  margin: 10px 0 8px;
+}
+
+details.rai {
+  margin: 12px 0 18px;
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+details.rai > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+details.rai > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rai > summary::after {
+  content: "▾";
+  float: right;
+  color: var(--muted);
+  transform: translateY(1px);
+}
+
+details.rai[open] > summary::after {
+  content: "▴";
+}
+
+details.rai .rai-body {
+  margin-top: 10px;
+}
+
+details.rai ul {
+  margin: 6px 0 0 18px;
+  padding: 0;
+}
