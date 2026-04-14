@@ -113,25 +113,48 @@ function currentPage() {
 
 (async () => {
   const { book, letter } = resolveParams();
-  if (!letter) {
+  const unitParam = parseInt(qs("unit") || "0", 10);
+  const isBook2  = book === 2;
+
+  if (!isBook2 && !letter) {
     throw new Error('Missing letter parameter. Use ?book=1&letter=r or legacy ?unit=r.');
   }
 
   const bookData = await loadBook(book);
-  const letterData = bookData.letters?.[letter];
-  if (!letterData) {
-    throw new Error(`Letter "${letter}" not found in book ${book}.`);
+
+  let words, labelText, navQuery;
+
+  if (isBook2) {
+    // Book 2: load unit data by unit number
+    const unitNum  = unitParam || 1;
+    const unitData = (bookData.units || []).find(u => u.unit === unitNum);
+    if (!unitData) {
+      throw new Error(`Unit ${unitNum} not found in book-2.json`);
+    }
+    words     = unitData.words;
+    labelText = `Unit ${unitNum}`;
+    navQuery  = `?book=2&unit=${unitNum}`;
+  } else {
+    // Book 1 / Book 3: load letter data
+    const letterData = bookData.letters?.[letter];
+    if (!letterData) {
+      throw new Error(`Letter "${letter}" not found in book ${book}.`);
+    }
+    words     = letterData.words;
+    labelText = `Letter ${letter.toUpperCase()}`;
+    navQuery  = `?book=${book}&letter=${letter}`;
   }
-
-  const words = letterData.words;
-  const labelText = `Letter ${letter.toUpperCase()}`;
-
-  // Build the query string to preserve on navigation links
-  const navQuery = `?book=${book}&letter=${letter}`;
 
   // ── Update navigation links ──────────────────────────────────────────────
   const toA4 = document.getElementById("toA4");
-  if (toA4) toA4.href = `./activity4.html${navQuery}`;
+  if (toA4) {
+    if (isBook2) {
+      toA4.href = `./activity2.html${navQuery}`;
+      toA4.textContent = "Go to Activity II \u2192";
+    } else {
+      toA4.href = `./activity4.html${navQuery}`;
+    }
+  }
 
   const toA1 = document.getElementById("toA1");
   if (toA1) toA1.href = `./activity1.html${navQuery}`;
