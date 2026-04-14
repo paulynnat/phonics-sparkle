@@ -8,9 +8,9 @@
       "targetSound": "bl",
       "words": ["blue", "blow", "black"],
       "haiku": [
-        "Blue sky blows gently,",
+        "Blue sky stretches long,",
         "Black clouds clap with loud thunder,",
-        "Flower bends in wind."
+        "Flowers dance strongly."
       ]
     },
     {
@@ -19,7 +19,7 @@
       "targetSound": "cl",
       "words": ["clap", "climb", "clock"],
       "haiku": [
-        "Clap hands climb the tree,",
+        "Clap and climb the tree,",
         "Clock ticks fast on the playground,",
         "Clouds float quietly."
       ]
@@ -41,7 +41,7 @@
       "targetSound": "gl",
       "words": ["glass", "glue", "globe"],
       "haiku": [
-        "Glass shines with bright glue,",
+        "Glass shines with bright hue,",
         "Globe spins round with glowing light,",
         "Glad hearts feel so warm."
       ]
@@ -52,8 +52,8 @@
       "targetSound": "pl",
       "words": ["plane", "plant", "play"],
       "haiku": [
-        "Plane flies over plants,",
-        "Children play with pretty flowers,",
+        "Plane flies above clouds,",
+        "Children playing singing songs,",
         "Playful wind blows soft."
       ]
     },
@@ -63,7 +63,7 @@
       "targetSound": "sl",
       "words": ["slip", "sleigh", "sleep"],
       "haiku": [
-        "Slip on the wet sleigh,",
+        "Sitting on the sleigh,",
         "Sleepy eyes close in the night,",
         "Snow falls soft and slow."
       ]
@@ -96,9 +96,9 @@
       "targetSound": "fr",
       "words": ["frog", "fries", "fruit"],
       "haiku": [
-        "Frog jumps for the fruit,",
-        "Fries crunch loud with every bite,",
-        "Fresh friends laugh and play."
+        "Freewheeling cartwheels,",
+        "Friends cheering loud and brightly,",
+        "Fresh smiles all around."
       ]
     },
     {
@@ -152,7 +152,7 @@
       "words": ["chair", "cheese", "child"],
       "haiku": [
         "Child sits on the chair,",
-        "Cheese tastes good with fresh bread slices,",
+        "Cheese goes with fresh bread slices,",
         "Cheer rings through the room."
       ]
     },
@@ -239,7 +239,7 @@
       "targetSound": "i-e",
       "words": ["bicycle", "five", "time"],
       "haiku": [
-        "Five friends ride bikes fast,",
+        "Five friends ride fast bikes,",
         "Time flies by with happy laughs,",
         "Ride feels free and light."
       ]
@@ -317,7 +317,7 @@
       "words": ["blue", "glue", "true"],
       "haiku": [
         "Blue sky shines so true,",
-        "Glue holds pieces together,",
+        "True hearts tightly together,",
         "Friends stay close and kind."
       ]
     },
@@ -327,9 +327,9 @@
       "targetSound": "ng",
       "words": ["ring", "sing", "king"],
       "haiku": [
-        "King wears a gold ring,",
-        "Sing a happy song together,",
-        "Bell rings loud and clear."
+        "King holds a gold ring,",
+        "Knights gathering together,",
+        "Bells ring loud and clear."
       ]
     }
   ]
