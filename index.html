@@ -19,7 +19,7 @@
 
     <p class="muted small instructions" id="instructions">
       <strong>Activity I:</strong> tap a flashcard to hear the word.<br />
-      <strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.
+      <strong>Activity IV:</strong> parent reads the riddle aloud; child taps the correct card.
     </p>
 
     <details class="rai">
@@ -30,7 +30,7 @@
         </p>
         <ul>
           <li><strong>Child Privacy Protection:</strong> No personal data from children is collected, stored, or shared. All content is anonymous and focused solely on learning.</li>
-          <li><strong>Pedagogical Soundness:</strong> Activities are designed with early childhood literacy experts to ensure they are developmentally appropriate and effective for phonics learning.</li>
+          <li><strong>Pedagogical Soundness:</strong> Activities are designed with early childhood literacy experts to ensure they are developmentally appropriate and effective for phonics learnin[...]</li>
           <li><strong>Age Appropriateness:</strong> Visuals, words, and instructions are tailored for young learners, avoiding sensitive or unsuitable content.</li>
           <li><strong>Transparency:</strong> Parents are provided with clear guides on how activities work and how they support phonics development.</li>
           <li><strong>Safety First:</strong> All assets are created to be family‑friendly, cheerful, and free from harmful or misleading material.</li>
@@ -62,7 +62,7 @@
 
       var BOOK2_INSTRUCTIONS =
         '<strong>Activity I:</strong> tap a flashcard to hear the word.<br />' +
-        '<strong>Activity II:</strong> parent reads the riddle aloud; child taps the correct card.';
+        '<strong>Activity IV:</strong> parent reads the riddle aloud; child taps the correct card.';
 
       function getBookFromUrl() {
         var params = new URLSearchParams(window.location.search);
@@ -104,106 +104,4 @@
           if (isEnabled) {
             tile.innerHTML =
               '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
-              '<div class="letter-links">' +
-              '<a class="btn btn-sm" href="./activity1.html?book=' + book + '&amp;letter=' + letter + '">Act I</a>' +
-              '<a class="btn btn-sm secondary" href="./activity4.html?book=' + book + '&amp;letter=' + letter + '">Act IV</a>' +
-              '</div>';
-          } else {
-            tile.innerHTML =
-              '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
-              '<span class="letter-soon">Coming soon</span>';
-          }
-
-          grid.appendChild(tile);
-        }
-      }
-
-      // ── Book 2: Unit grid (same tile style as Book 1 letter grid) ────────────
-
-      function buildUnitGrid(units) {
-        clearGrid();
-        grid.className = 'letter-grid';
-
-        units.forEach(function (unit) {
-          var tile = document.createElement('div');
-          tile.className = 'letter-tile enabled';
-
-          tile.innerHTML =
-            /* Reuse letter-label/letter-tile CSS from Book 1 — same visual treatment. */
-            '<span class="letter-label">Unit ' + unit.unit + '</span>' +
-            '<div class="letter-links">' +
-            '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Act I</a>' +
-            '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Act IV</a>' +
-            '</div>';
-
-          grid.appendChild(tile);
-        });
-      }
-
-      // ── Load book data ─────────────────────────────────────────────────────
-
-      function loadBook(book) {
-        setActiveButton(book);
-        note.style.display = 'none';
-        note.textContent = '';
-
-        if (book === 2) {
-          subtitle.innerHTML = 'Book 2 &mdash; choose a unit to begin.';
-          if (instructions) instructions.innerHTML = BOOK2_INSTRUCTIONS;
-
-          fetch(BASE + '/data/book-2.json')
-            .then(function (r) {
-              if (!r.ok) throw new Error('HTTP ' + r.status);
-              return r.json();
-            })
-            .then(function (data) {
-              buildUnitGrid((data && data.units) || []);
-            })
-            .catch(function (err) {
-              note.style.display = 'block';
-              note.textContent = 'Book 2 content is not published yet (missing data/book-2.json).';
-              console.warn('[Phonics Sparkle] Could not load book-2.json.', err);
-              buildUnitGrid([]);
-            });
-          return;
-        }
-
-        // Book 1 / Book 3: letter grid
-        subtitle.innerHTML = 'Book ' + book + ' &mdash; choose a letter to begin.';
-        if (instructions) instructions.innerHTML = BOOK1_INSTRUCTIONS;
-
-        fetch(BASE + '/data/book-' + book + '.json')
-          .then(function (r) {
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            return r.json();
-          })
-          .then(function (data) {
-            var enabled = Object.keys((data && data.letters) || {});
-            buildLetterGrid(enabled, book);
-          })
-          .catch(function (err) {
-            note.style.display = 'block';
-            note.textContent = 'Book ' + book + ' content is not published yet (missing data/book-' + book + '.json).';
-            console.warn('[Phonics Sparkle] Could not load book-' + book + '.json, no letters enabled.', err);
-            buildLetterGrid([], book);
-          });
-      }
-
-      buttons.forEach(function (b) {
-        b.addEventListener('click', function () {
-          var book = parseInt(b.getAttribute('data-book'), 10);
-          setBookInUrl(book);
-          loadBook(book);
-        });
-      });
-
-      var book = getBookFromUrl();
-      loadBook(book);
-
-      window.addEventListener('popstate', function () {
-        loadBook(getBookFromUrl());
-      });
-    })();
-  </script>
-</body>
-</html>
+              '<div class="letter-links">
