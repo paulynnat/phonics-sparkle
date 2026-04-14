@@ -17,7 +17,7 @@
       <button class="book-btn" type="button" data-book="3">Book 3</button>
     </div>
 
-    <p class="muted small instructions">
+    <p class="muted small instructions" id="instructions">
       <strong>Activity I:</strong> tap a flashcard to hear the word.<br />
       <strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.
     </p>
@@ -53,7 +53,16 @@
       var grid = document.getElementById('letterGrid');
       var subtitle = document.getElementById('subtitle');
       var note = document.getElementById('bookNote');
+      var instructions = document.getElementById('instructions');
       var buttons = Array.prototype.slice.call(document.querySelectorAll('.book-btn'));
+
+      var BOOK1_INSTRUCTIONS =
+        '<strong>Activity I:</strong> tap a flashcard to hear the word.<br />' +
+        '<strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.';
+
+      var BOOK2_INSTRUCTIONS =
+        '<strong>Memory Match (Act I):</strong> flip cards to find matching pairs.<br />' +
+        '<strong>Listen &amp; Find (Act II):</strong> listen to the riddle and tap the correct card.';
 
       function getBookFromUrl() {
         var params = new URLSearchParams(window.location.search);
@@ -80,8 +89,11 @@
         while (grid.firstChild) grid.removeChild(grid.firstChild);
       }
 
-      function buildGrid(enabled, book) {
+      // ── Book 1 / Book 3: A–Z letter grid ──────────────────────────────────
+
+      function buildLetterGrid(enabled, book) {
         clearGrid();
+        grid.className = 'letter-grid';
 
         for (var i = 0; i < 26; i++) {
           var letter = String.fromCharCode(97 + i); // a–z
@@ -106,12 +118,61 @@
         }
       }
 
-      function loadBook(book) {
-        subtitle.innerHTML = 'Book ' + book + ' &mdash; choose a letter to begin.';
-        setActiveButton(book);
+      // ── Book 2: Unit grid ──────────────────────────────────────────────────
 
+      function buildUnitGrid(units) {
+        clearGrid();
+        grid.className = 'unit-grid';
+
+        units.forEach(function (unit) {
+          var tile = document.createElement('div');
+          tile.className = 'unit-tile';
+
+          var preview = unit.words ? unit.words.slice(0, 4).join(', ') : '';
+
+          tile.innerHTML =
+            '<span class="unit-label">Unit ' + unit.unit + '</span>' +
+            '<span class="unit-words">' + preview + '</span>' +
+            '<div class="letter-links">' +
+            '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Memory</a>' +
+            '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Listen</a>' +
+            '</div>';
+
+          grid.appendChild(tile);
+        });
+      }
+
+      // ── Load book data ─────────────────────────────────────────────────────
+
+      function loadBook(book) {
+        setActiveButton(book);
         note.style.display = 'none';
         note.textContent = '';
+
+        if (book === 2) {
+          subtitle.innerHTML = 'Book 2 &mdash; choose a unit to begin.';
+          if (instructions) instructions.innerHTML = BOOK2_INSTRUCTIONS;
+
+          fetch(BASE + '/data/book-2.json')
+            .then(function (r) {
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              return r.json();
+            })
+            .then(function (data) {
+              buildUnitGrid((data && data.units) || []);
+            })
+            .catch(function (err) {
+              note.style.display = 'block';
+              note.textContent = 'Book 2 content is not published yet (missing data/book-2.json).';
+              console.warn('[Phonics Sparkle] Could not load book-2.json.', err);
+              buildUnitGrid([]);
+            });
+          return;
+        }
+
+        // Book 1 / Book 3: letter grid
+        subtitle.innerHTML = 'Book ' + book + ' &mdash; choose a letter to begin.';
+        if (instructions) instructions.innerHTML = BOOK1_INSTRUCTIONS;
 
         fetch(BASE + '/data/book-' + book + '.json')
           .then(function (r) {
@@ -120,13 +181,13 @@
           })
           .then(function (data) {
             var enabled = Object.keys((data && data.letters) || {});
-            buildGrid(enabled, book);
+            buildLetterGrid(enabled, book);
           })
           .catch(function (err) {
             note.style.display = 'block';
             note.textContent = 'Book ' + book + ' content is not published yet (missing data/book-' + book + '.json).';
             console.warn('[Phonics Sparkle] Could not load book-' + book + '.json, no letters enabled.', err);
-            buildGrid([], book);
+            buildLetterGrid([], book);
           });
       }
 
