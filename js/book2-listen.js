@@ -61,9 +61,7 @@ function showRiddle() {
 
   clearFeedback(cardsEl);
   if (nextBtn) nextBtn.style.display = "none";
-
-  // Automatically play the prompt word once loaded
-  // (don't auto-play; wait for user to press Play button)
+  // Audio plays only when the user presses the Play button.
 }
 
 /** Advance to next riddle, or show a completion message. */
