@@ -61,8 +61,8 @@
         '<strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.';
 
       var BOOK2_INSTRUCTIONS =
-        '<strong>Memory Match (Act I):</strong> flip cards to find matching pairs.<br />' +
-        '<strong>Listen &amp; Find (Act II):</strong> listen to the riddle and tap the correct card.';
+        '<strong>Activity I:</strong> tap a flashcard to hear the word.<br />' +
+        '<strong>Activity II:</strong> parent reads the riddle aloud; child taps the correct card.';
 
       function getBookFromUrl() {
         var params = new URLSearchParams(window.location.search);
@@ -118,24 +118,22 @@
         }
       }
 
-      // ── Book 2: Unit grid ──────────────────────────────────────────────────
+      // ── Book 2: Unit grid (same tile style as Book 1 letter grid) ────────────
 
       function buildUnitGrid(units) {
         clearGrid();
-        grid.className = 'unit-grid';
+        grid.className = 'letter-grid';
 
         units.forEach(function (unit) {
           var tile = document.createElement('div');
-          tile.className = 'unit-tile';
-
-          var preview = unit.words ? unit.words.slice(0, 4).join(', ') : '';
+          tile.className = 'letter-tile enabled';
 
           tile.innerHTML =
-            '<span class="unit-label">Unit ' + unit.unit + '</span>' +
-            '<span class="unit-words">' + preview + '</span>' +
+            /* Reuse letter-label/letter-tile CSS from Book 1 — same visual treatment. */
+            '<span class="letter-label">U' + unit.unit + '</span>' +
             '<div class="letter-links">' +
-            '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Memory</a>' +
-            '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Listen</a>' +
+            '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Act I</a>' +
+            '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Act II</a>' +
             '</div>';
 
           grid.appendChild(tile);

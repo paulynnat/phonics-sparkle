@@ -4,10 +4,10 @@
  * URL: activity2.html?book=2&unit=<n>
  *
  * - Shows a grid of picture + word flashcards for the unit.
- * - Displays a riddle prompt; child taps the correct card.
+ * - Displays a riddle prompt for the PARENT to read aloud; child taps the correct card.
  * - Correct: green highlight + advance to next riddle.
  * - Wrong: shake animation; retry same riddle.
- * - Fallback (no riddles): random target, prompt "Find: <word>".
+ * - Fallback (no riddles): prompt "Parent: say one of the words. Child: find it!"
  */
 
 import {
@@ -18,7 +18,6 @@ import {
 
 const titleEl       = document.getElementById("title");
 const promptTextEl  = document.getElementById("promptText");
-const playBtn       = document.getElementById("playPrompt");
 const cardsEl       = document.getElementById("cards");
 const footerEl      = document.querySelector(".footer");
 const nextBtn       = document.getElementById("nextRound");
@@ -37,9 +36,9 @@ function buildRiddles(unit) {
   if (unit.riddles && unit.riddles.length > 0) {
     return unit.riddles.slice(); // use provided riddles
   }
-  // Fallback: one riddle per word — "Find: <word>"
+  // Fallback: one riddle per word with parent-read prompt
   return shuffle(unit.words).map(word => ({
-    prompt: `Find: ${word}`,
+    prompt: `Find: "${word}"`,
     answer: word,
   }));
 }
@@ -61,7 +60,6 @@ function showRiddle() {
 
   clearFeedback(cardsEl);
   if (nextBtn) nextBtn.style.display = "none";
-  // Audio plays only when the user presses the Play button.
 }
 
 /** Advance to next riddle, or show a completion message. */
@@ -73,7 +71,6 @@ function nextRiddle() {
     // All riddles done — show a "done" state
     if (promptTextEl) promptTextEl.textContent = "🎉 Great job! You found all the words!";
     if (nextBtn) nextBtn.style.display = "none";
-    if (playBtn) playBtn.style.display = "none";
 
     const progressEl = document.getElementById("riddleProgress");
     if (progressEl) progressEl.textContent = `${riddles.length} / ${riddles.length}`;
@@ -91,7 +88,6 @@ function nextRiddle() {
       riddles   = buildRiddles(unitData);
       riddleIndex = 0;
       again.remove();
-      if (playBtn) playBtn.style.display = "";
       showRiddle();
     });
     if (nextBtn) nextBtn.insertAdjacentElement("afterend", again);
@@ -118,7 +114,7 @@ function nextRiddle() {
   if (footerEl) {
     footerEl.innerHTML =
       `<a class="btn secondary" href="./index.html?book=2">\u2190 Back to Book 2</a>
-       <a class="btn" href="./activity1.html?book=2&amp;unit=${unitData.unit}">Memory Match \u2192</a>`;
+       <a class="btn" href="./activity1.html?book=2&amp;unit=${unitData.unit}">Activity I \u2192</a>`;
     if (nextBtn) footerEl.appendChild(nextBtn);
   }
 
@@ -126,6 +122,7 @@ function nextRiddle() {
   riddles = buildRiddles(unitData);
 
   // Render flashcard grid
+  // Tapping a card checks correctness; correct cards play audio (like Book 1 Activity I).
   if (cardsEl) {
     cardsEl.innerHTML = "";
     unitData.words.forEach(word => {
@@ -140,13 +137,6 @@ function nextRiddle() {
         }
       });
       cardsEl.appendChild(card);
-    });
-  }
-
-  // Play button → play the answer word audio
-  if (playBtn) {
-    playBtn.addEventListener("click", () => {
-      playAudio(currentAnswer).catch(() => {});
     });
   }
 
