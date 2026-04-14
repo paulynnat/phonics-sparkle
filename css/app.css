@@ -500,6 +500,20 @@ details.rai ul {
   white-space: nowrap;
 }
 
+.sound-badge {
+  display: inline-block;
+  background: rgba(42, 91, 255, 0.18);
+  border: 1px solid #2a5bff;
+  color: var(--text);
+  font-weight: 800;
+  font-style: normal;
+  border-radius: 6px;
+  padding: 1px 8px;
+  font-size: 1em;
+  letter-spacing: 0.5px;
+  vertical-align: baseline;
+}
+
 /* Override letter-label size for multi-word blend/digraph tile labels */
 .blend-label {
   font-size: 13px;
