@@ -18,8 +18,8 @@
     </div>
 
     <p class="muted small instructions" id="instructions">
-      <strong>Activity I:</strong> tap a flashcard to hear the word.<br />
-      <strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.
+      <strong>Activity 1:</strong> tap a flashcard to hear the word.<br />
+      <strong>Activity 4:</strong> parent reads the prompt aloud; child taps the correct card.
     </p>
 
     <details class="rai">
@@ -57,16 +57,16 @@
       var buttons = Array.prototype.slice.call(document.querySelectorAll('.book-btn'));
 
       var BOOK1_INSTRUCTIONS =
-        '<strong>Activity I:</strong> tap a flashcard to hear the word.<br />' +
-        '<strong>Activity IV:</strong> parent reads the prompt aloud; child taps the correct card.';
+        '<strong>Activity 1:</strong> tap a flashcard to hear the word.<br />' +
+        '<strong>Activity 4:</strong> parent reads the prompt aloud; child taps the correct card.';
 
       var BOOK2_INSTRUCTIONS =
-        '<strong>Activity I:</strong> tap a flashcard to hear the word.<br />' +
-        '<strong>Activity II:</strong> parent reads the riddle aloud; child taps the correct card.';
+        '<strong>Activity 1:</strong> tap a flashcard to hear the word.<br />' +
+        '<strong>Activity 4:</strong> parent reads the riddle aloud; child taps the correct card.';
 
       var BOOK3_INSTRUCTIONS =
-        '<strong>Parent:</strong> read the haiku aloud slowly and with feeling (2\u20133 times).<br />' +
-        '<strong>Child:</strong> listen carefully and clap once every time you hear a word with the target sound.';
+        '<strong>Activity 1:</strong> tap a flashcard to hear the word.<br />' +
+        '<strong>Activity 4:</strong> parent reads the haiku aloud; child claps for each word with the target sound.';
 
       function getBookFromUrl() {
         var params = new URLSearchParams(window.location.search);
@@ -109,8 +109,8 @@
             tile.innerHTML =
               '<span class="letter-label">' + letter.toUpperCase() + '</span>' +
               '<div class="letter-links">' +
-              '<a class="btn btn-sm" href="./activity1.html?book=' + book + '&amp;letter=' + letter + '">Act I</a>' +
-              '<a class="btn btn-sm secondary" href="./activity4.html?book=' + book + '&amp;letter=' + letter + '">Act IV</a>' +
+              '<a class="btn btn-sm" href="./activity1.html?book=' + book + '&amp;letter=' + letter + '">Act 1</a>' +
+              '<a class="btn btn-sm secondary" href="./activity4.html?book=' + book + '&amp;letter=' + letter + '">Act 4</a>' +
               '</div>';
           } else {
             tile.innerHTML =
@@ -136,15 +136,16 @@
             tile.innerHTML =
               '<span class="letter-label">U' + unit.unit + '</span>' +
               '<div class="letter-links">' +
-              '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Act I</a>' +
-              '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Act II</a>' +
+              '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Act 1</a>' +
+              '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Act 4</a>' +
               '</div>';
           } else {
-            // Book 3: show blend/digraph label and link to haiku activity
+            // Book 3: show blend/digraph label and links to Act 1 (flashcards) and Act 4 (haiku)
             tile.innerHTML =
               '<span class="letter-label blend-label">' + unit.label + '</span>' +
               '<div class="letter-links">' +
-              '<a class="btn btn-sm" href="./activity-haiku.html?book=3&amp;unit=' + unit.unit + '">Haiku</a>' +
+              '<a class="btn btn-sm" href="./activity1.html?book=3&amp;unit=' + unit.unit + '">Act 1</a>' +
+              '<a class="btn btn-sm secondary" href="./activity-haiku.html?book=3&amp;unit=' + unit.unit + '">Act 4</a>' +
               '</div>';
           }
 

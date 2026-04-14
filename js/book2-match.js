@@ -1,5 +1,5 @@
 /**
- * book2-match.js — Memory Match game for Book 2 (Activity I).
+ * book2-match.js — Memory Match game for Book 2 (Activity 1).
  *
  * URL: activity1.html?book=2&unit=<n>
  *
