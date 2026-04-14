@@ -13,7 +13,7 @@
       <h1 id="title">Activity I</h1>
     </header>
 
-    <p class="muted">Tap any flashcard to hear the word.</p>
+    <p class="muted activity-subtitle">Tap any flashcard to hear the word.</p>
 
     <section id="cards" class="grid"></section>
 
@@ -22,6 +22,14 @@
     </footer>
   </main>
 
-  <script type="module" src="./js/demo.js"></script>
+  <script type="module">
+    // Route to the correct activity module based on the book parameter.
+    const book = parseInt(new URLSearchParams(location.search).get('book') || '1', 10);
+    if (book === 2) {
+      import('./js/book2-match.js');
+    } else {
+      import('./js/demo.js');
+    }
+  </script>
 </body>
 </html>

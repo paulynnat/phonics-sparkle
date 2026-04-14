@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activity II &mdash; Listen &amp; Find</title>
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="link" href="./index.html">&larr; Home</a>
+      <h1 id="title">Activity II &mdash; Listen &amp; Find</h1>
+    </header>
+
+    <div class="prompt card" id="promptBox">
+      <div class="prompt-row">
+        <p id="promptText" class="prompt-text">Loading&hellip;</p>
+        <span id="riddleProgress" class="riddle-progress"></span>
+      </div>
+      <button id="playPrompt" class="btn" type="button">&#9654; Play</button>
+    </div>
+
+    <p class="muted">Tap the correct word to answer the riddle.</p>
+
+    <section id="cards" class="grid"></section>
+
+    <footer class="footer">
+      <a class="btn secondary" href="./index.html?book=2">&larr; Back to Book 2</a>
+      <button id="nextRound" class="btn" type="button" style="display:none">Next &#9654;</button>
+    </footer>
+  </main>
+
+  <script type="module" src="./js/book2-listen.js"></script>
+</body>
+</html>

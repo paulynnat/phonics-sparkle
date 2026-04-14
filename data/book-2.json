@@ -1,0 +1,171 @@
+{
+  "book": 2,
+  "title": "Book 2",
+  "units": [
+    {
+      "unit": 1,
+      "words": ["cab", "lab", "nab", "tab"],
+      "riddles": [
+        { "prompt": "I take passengers around the city. I rhyme with lab. Find me!", "answer": "cab" },
+        { "prompt": "Scientists do experiments here. It rhymes with cab. Find it!", "answer": "lab" },
+        { "prompt": "To catch or grab something quickly. Find the word!", "answer": "nab" },
+        { "prompt": "You press this on a keyboard, or it opens a new page in a browser. Find it!", "answer": "tab" }
+      ]
+    },
+    {
+      "unit": 2,
+      "words": ["glad", "mad", "rad", "sad"],
+      "riddles": [
+        { "prompt": "Another word for very happy. Find it!", "answer": "glad" },
+        { "prompt": "Feeling angry or upset. Find the word!", "answer": "mad" },
+        { "prompt": "Really cool and awesome. Find the word!", "answer": "rad" },
+        { "prompt": "Feeling unhappy or gloomy. Find it!", "answer": "sad" }
+      ]
+    },
+    {
+      "unit": 3,
+      "words": ["bag", "rag", "tag", "wag"],
+      "riddles": [
+        { "prompt": "You carry things in me to school or the store. Find me!", "answer": "bag" },
+        { "prompt": "A torn piece of old cloth. Find the word!", "answer": "rag" },
+        { "prompt": "A small label with a name or price on it. Find it!", "answer": "tag" },
+        { "prompt": "A happy dog does this with its tail. Find the word!", "answer": "wag" }
+      ]
+    },
+    {
+      "unit": 4,
+      "words": ["clam", "ham", "jam", "ram"],
+      "riddles": [
+        { "prompt": "I am a shellfish that lives in the sand. Find me!", "answer": "clam" },
+        { "prompt": "I am a pink meat that comes from a pig. Find me!", "answer": "ham" },
+        { "prompt": "I am a sweet spread made from fruit that you put on toast. Find me!", "answer": "jam" },
+        { "prompt": "I am a male sheep with big horns. Find me!", "answer": "ram" }
+      ]
+    },
+    {
+      "unit": 5,
+      "words": ["fan", "man", "pan", "ran"],
+      "riddles": [
+        { "prompt": "I spin around and keep you cool on a hot day. Find me!", "answer": "fan" },
+        { "prompt": "A grown-up boy. Find the word!", "answer": "man" },
+        { "prompt": "You cook eggs and pancakes in me on the stove. Find me!", "answer": "pan" },
+        { "prompt": "Moved very fast on two legs. Find the word!", "answer": "ran" }
+      ]
+    },
+    {
+      "unit": 6,
+      "words": ["cap", "map", "nap", "tap"],
+      "riddles": [
+        { "prompt": "You wear me on your head to shade your eyes from the sun. Find me!", "answer": "cap" },
+        { "prompt": "I show you where places are and help you find your way. Find me!", "answer": "map" },
+        { "prompt": "A short sleep during the day. Find the word!", "answer": "nap" },
+        { "prompt": "You turn me to get water from the sink. Find me!", "answer": "tap" }
+      ]
+    },
+    {
+      "unit": 7,
+      "words": ["cat", "hat", "mat", "sat"],
+      "riddles": [
+        { "prompt": "I am a furry pet that purrs and says meow. Find me!", "answer": "cat" },
+        { "prompt": "You wear me on your head. I rhyme with cat. Find me!", "answer": "hat" },
+        { "prompt": "You wipe your feet on me at the door. Find me!", "answer": "mat" },
+        { "prompt": "Rested on a chair or the floor. Find the word!", "answer": "sat" }
+      ]
+    },
+    {
+      "unit": 8,
+      "words": ["bed", "fed", "med", "shed"],
+      "riddles": [
+        { "prompt": "You sleep in me at night. Find me!", "answer": "bed" },
+        { "prompt": "Gave food to someone. Find the word!", "answer": "fed" },
+        { "prompt": "Short for medicine. Find it!", "answer": "med" },
+        { "prompt": "A small building in the garden where tools are kept. Find me!", "answer": "shed" }
+      ]
+    },
+    {
+      "unit": 9,
+      "words": ["hen", "men", "pen", "ten"],
+      "riddles": []
+    },
+    {
+      "unit": 10,
+      "words": ["jet", "net", "pet", "set"],
+      "riddles": []
+    },
+    {
+      "unit": 11,
+      "words": ["big", "dig", "fig", "wig"],
+      "riddles": []
+    },
+    {
+      "unit": 12,
+      "words": ["grin", "pin", "spin", "tin"],
+      "riddles": []
+    },
+    {
+      "unit": 13,
+      "words": ["dip", "flip", "sip", "trip"],
+      "riddles": []
+    },
+    {
+      "unit": 14,
+      "words": ["fit", "lit", "sit", "split"],
+      "riddles": []
+    },
+    {
+      "unit": 15,
+      "words": ["job", "knob", "rob", "sob"],
+      "riddles": []
+    },
+    {
+      "unit": 16,
+      "words": ["dog", "fog", "frog", "log"],
+      "riddles": [
+        { "prompt": "I am a green animal that jumps and says ribbit. Find me!", "answer": "frog" },
+        { "prompt": "I am a loyal pet that barks and wags its tail. Find me!", "answer": "dog" },
+        { "prompt": "I am thick misty air that makes it hard to see. Find me!", "answer": "fog" },
+        { "prompt": "I am a big round piece of wood from a tree. Find me!", "answer": "log" }
+      ]
+    },
+    {
+      "unit": 17,
+      "words": ["hop", "mop", "stop", "top"],
+      "riddles": []
+    },
+    {
+      "unit": 18,
+      "words": ["dot", "hot", "knot", "pot"],
+      "riddles": []
+    },
+    {
+      "unit": 19,
+      "words": ["club", "cub", "rub", "tub"],
+      "riddles": []
+    },
+    {
+      "unit": 20,
+      "words": ["bug", "hug", "plug", "rug"],
+      "riddles": []
+    },
+    {
+      "unit": 21,
+      "words": ["bun", "fun", "run", "sun"],
+      "riddles": [
+        { "prompt": "I shine bright and warm in the sky during the day. Find me!", "answer": "sun" },
+        { "prompt": "I am a soft, round bread roll. Find me!", "answer": "bun" },
+        { "prompt": "Move fast on your legs! Find the word!", "answer": "run" },
+        { "prompt": "Having a great time and enjoying yourself. Find the word!", "answer": "fun" }
+      ]
+    },
+    {
+      "unit": 22,
+      "words": ["cut", "hut", "nut", "shut"],
+      "riddles": [
+        { "prompt": "I am a small simple house or shelter. Find me!", "answer": "hut" },
+        { "prompt": "I am a hard-shelled seed that you can eat. Find me!", "answer": "nut" },
+        { "prompt": "Close the door! Find the word that means to close.", "answer": "shut" },
+        { "prompt": "To slice through something with scissors or a knife. Find the word!", "answer": "cut" }
+      ]
+    }
+  ]
+}
