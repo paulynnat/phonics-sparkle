@@ -6,164 +6,224 @@
       "unit": 1,
       "label": "bl blend",
       "targetSound": "bl",
-      "words": ["blue", "blow", "black"],
+      "words": [
+        "blue",
+        "blow",
+        "black"
+      ],
       "haiku": [
-        "Blue sky stretches long,",
-        "Black clouds clap with loud thunder,",
-        "Flowers dance strongly."
+        "Blue sky stretches wide,",
+        "Black clouds rumble, thunder cracks,",
+        "Flowers sway gently."
       ]
     },
     {
       "unit": 2,
       "label": "cl blend",
       "targetSound": "cl",
-      "words": ["clap", "climb", "clock"],
+      "words": [
+        "clap",
+        "climb",
+        "clock"
+      ],
       "haiku": [
-        "Clap and climb the tree,",
-        "Clock ticks fast on the playground,",
-        "Clouds float quietly."
+        "Clap, climb up the tree,",
+        "Clock ticks while children laugh loud,",
+        "Clouds drift silently."
       ]
     },
     {
       "unit": 3,
       "label": "fl blend",
       "targetSound": "fl",
-      "words": ["fly", "flag", "flower"],
+      "words": [
+        "fly",
+        "flag",
+        "flower"
+      ],
       "haiku": [
-        "Flag flies high today,",
-        "Flower sways in gentle breeze,",
-        "Birds fly with the wind."
+        "Flag waves in the breeze,",
+        "Flowers bow with gentle grace,",
+        "Birds soar through the sky."
       ]
     },
     {
       "unit": 4,
       "label": "gl blend",
       "targetSound": "gl",
-      "words": ["glass", "glue", "globe"],
+      "words": [
+        "glass",
+        "glue",
+        "globe"
+      ],
       "haiku": [
-        "Glass shines with bright hue,",
-        "Globe spins round with glowing light,",
-        "Glad hearts feel so warm."
+        "Glass sparkles with light,",
+        "Globe turns with a glowing spin,",
+        "Glad hearts shine inside."
       ]
     },
     {
       "unit": 5,
       "label": "pl blend",
       "targetSound": "pl",
-      "words": ["plane", "plant", "play"],
+      "words": [
+        "plane",
+        "plant",
+        "play"
+      ],
       "haiku": [
-        "Plane flies above clouds,",
-        "Children playing singing songs,",
-        "Playful wind blows soft."
+        "Plane drifts through white clouds,",
+        "Children sing and laugh below,",
+        "Playful wind whispers."
       ]
     },
     {
       "unit": 6,
       "label": "sl blend",
       "targetSound": "sl",
-      "words": ["slip", "sleigh", "sleep"],
+      "words": [
+        "slip",
+        "sleigh",
+        "sleep"
+      ],
       "haiku": [
-        "Sitting on the sleigh,",
-        "Sleepy eyes close in the night,",
-        "Snow falls soft and slow."
+        "Sleigh glides through the snow,",
+        "Sleepy eyes drift into dreams,",
+        "Snow falls soft and still."
       ]
     },
     {
       "unit": 7,
       "label": "br blend",
       "targetSound": "br",
-      "words": ["bread", "brush", "brown"],
+      "words": [
+        "bread",
+        "brush",
+        "brown"
+      ],
       "haiku": [
-        "Brown bread on the plate,",
-        "Brush your teeth with bubbly paste,",
-        "Bread smells warm and good."
+        "Brown bread on the tray,",
+        "Bubbles sparkle as you brush,",
+        "Warm bread scents the air."
       ]
     },
     {
       "unit": 8,
       "label": "cr blend",
       "targetSound": "cr",
-      "words": ["crab", "crossing", "crayons"],
+      "words": [
+        "crab",
+        "crossing",
+        "crayons"
+      ],
       "haiku": [
-        "Crab crawls at the shore,",
-        "Crayons draw bright crossing lines,",
-        "Crisp waves wash the sand."
+        "Crab scuttles on shore,",
+        "Crayons sketch bright crossing paths,",
+        "Crisp waves kiss the sand."
       ]
     },
     {
       "unit": 9,
       "label": "fr blend",
       "targetSound": "fr",
-      "words": ["frog", "fries", "fruit"],
+      "words": [
+        "frog",
+        "fries",
+        "fruit"
+      ],
       "haiku": [
-        "Freewheeling cartwheels,",
-        "Friends cheering loud and brightly,",
-        "Fresh smiles all around."
+        "Cartwheels spin with joy,",
+        "Friends cheer with bright ringing laughs,",
+        "Fresh smiles light the day."
       ]
     },
     {
       "unit": 10,
       "label": "gr blend",
       "targetSound": "gr",
-      "words": ["grass", "grapes", "grains"],
+      "words": [
+        "grass",
+        "grapes",
+        "grains"
+      ],
       "haiku": [
-        "Green grass grows so tall,",
+        "Green grass growing tall,",
         "Grapes and grains ripen in sun,",
-        "Great feast for us all."
+        "Great feast waits for all."
       ]
     },
     {
       "unit": 11,
       "label": "pr blend",
       "targetSound": "pr",
-      "words": ["prize", "prince", "pretzel"],
+      "words": [
+        "prize",
+        "prince",
+        "pretzel"
+      ],
       "haiku": [
-        "Prince wins a big prize,",
-        "Pretzel twists with salty bite,",
-        "Proud smile shines so wide."
+        "Prince holds shining prize,",
+        "Pretzel twists with salty crunch,",
+        "Proud smile warms the crowd."
       ]
     },
     {
       "unit": 12,
       "label": "tr blend",
       "targetSound": "tr",
-      "words": ["train", "tree", "truck"],
+      "words": [
+        "train",
+        "tree",
+        "truck"
+      ],
       "haiku": [
-        "Train chugs past the tree,",
-        "Truck carries fruit down the road,",
-        "Trip feels fast and free."
+        "Train chugs past tall trees,",
+        "Truck rolls with fruit down the road,",
+        "Trips feel swift and free."
       ]
     },
     {
       "unit": 13,
       "label": "wr blend",
       "targetSound": "wr",
-      "words": ["write", "wrist", "wrinkle"],
+      "words": [
+        "write",
+        "wrist",
+        "wrinkle"
+      ],
       "haiku": [
-        "Write with steady wrist,",
-        "Wrinkle smooths with gentle care,",
-        "Words flow clear and true."
+        "Write with steady hand,",
+        "Wrinkles fade with gentle touch,",
+        "Words flow bright and true."
       ]
     },
     {
       "unit": 14,
       "label": "ch digraph",
       "targetSound": "ch",
-      "words": ["chair", "cheese", "child"],
+      "words": [
+        "chair",
+        "cheese",
+        "child"
+      ],
       "haiku": [
-        "Child sits on the chair,",
-        "Cheese goes with fresh bread slices,",
-        "Cheer rings through the room."
+        "Child rests on the chair,",
+        "Cheese with bread brings happy smiles,",
+        "Cheer fills up the room."
       ]
     },
     {
       "unit": 15,
       "label": "sh digraph",
       "targetSound": "sh",
-      "words": ["ship", "shop", "shell"],
+      "words": [
+        "ship",
+        "shop",
+        "shell"
+      ],
       "haiku": [
-        "Ship sails to the shop,",
-        "Shiny shell shines on the sand,",
+        "Ship sails to the shore,",
+        "Shiny shells gleam in the sun,",
         "Waves wash soft and slow."
       ]
     },
@@ -171,32 +231,44 @@
       "unit": 16,
       "label": "th digraph",
       "targetSound": "th",
-      "words": ["thumb", "thunder", "thread"],
+      "words": [
+        "thumb",
+        "thunder",
+        "thread"
+      ],
       "haiku": [
         "Thumb points to the sky,",
-        "Thunder roars loud in the night,",
-        "Thread ties the kite tight."
+        "Thunder roars across the night,",
+        "Thread lifts kite on high."
       ]
     },
     {
       "unit": 17,
       "label": "wh digraph",
       "targetSound": "wh",
-      "words": ["wheel", "whale", "whisk"],
+      "words": [
+        "wheel",
+        "whale",
+        "whisk"
+      ],
       "haiku": [
-        "Whale spins like a wheel,",
-        "Whisk stirs fast in the big bowl,",
-        "White waves crash and whirl."
+        "Whale swims in the sea,",
+        "Whisk stirs quick in the mixer,",
+        "White waves crash and swirl."
       ]
     },
     {
       "unit": 18,
       "label": "split digraph a-e",
       "targetSound": "a-e",
-      "words": ["cake", "game", "name"],
+      "words": [
+        "cake",
+        "game",
+        "name"
+      ],
       "haiku": [
         "Cake waits on the plate,",
-        "Game time makes the children smile,",
+        "Game brings laughter to the crowd,",
         "Name the winner now."
       ]
     },
@@ -204,7 +276,11 @@
       "unit": 19,
       "label": "vowel digraph ai",
       "targetSound": "ai",
-      "words": ["rain", "train", "paint"],
+      "words": [
+        "rain",
+        "train",
+        "paint"
+      ],
       "haiku": [
         "Rain falls on the train,",
         "Paint bright colours in the sky,",
@@ -215,10 +291,14 @@
       "unit": 20,
       "label": "vowel digraph ee",
       "targetSound": "ee",
-      "words": ["tree", "bee", "feet"],
+      "words": [
+        "tree",
+        "bee",
+        "feet"
+      ],
       "haiku": [
-        "Bee flies to the tree,",
-        "Feet dance light under green leaves,",
+        "Bee hums near the tree,",
+        "Feet dance lightly under leaves,",
         "Sweet buzz fills the air."
       ]
     },
@@ -226,10 +306,14 @@
       "unit": 21,
       "label": "vowel digraph ea",
       "targetSound": "ea",
-      "words": ["leaf", "tea", "meat"],
+      "words": [
+        "leaf",
+        "tea",
+        "meat"
+      ],
       "haiku": [
-        "Leaf floats on the tea,",
-        "Meat cooks warm with fragrant steam,",
+        "Leaf floats in warm tea,",
+        "Meat cooks with sizzle and steam,",
         "Meal brings joy and peace."
       ]
     },
@@ -237,10 +321,14 @@
       "unit": 22,
       "label": "split digraph i-e",
       "targetSound": "i-e",
-      "words": ["bicycle", "five", "time"],
+      "words": [
+        "bicycle",
+        "five",
+        "time"
+      ],
       "haiku": [
-        "Five friends ride fast bikes,",
-        "Time flies by with happy laughs,",
+        "Five friends ride their bikes,",
+        "Time flies with their happy laughs,",
         "Ride feels free and light."
       ]
     },
@@ -248,7 +336,11 @@
       "unit": 23,
       "label": "vowel digraph igh",
       "targetSound": "igh",
-      "words": ["light", "night", "high"],
+      "words": [
+        "light",
+        "night",
+        "high"
+      ],
       "haiku": [
         "Light glows soft at night,",
         "High kite dances in the breeze,",
@@ -259,10 +351,14 @@
       "unit": 24,
       "label": "vowel digraph ie",
       "targetSound": "ie",
-      "words": ["pie", "tie", "field"],
+      "words": [
+        "pie",
+        "tie",
+        "field"
+      ],
       "haiku": [
-        "Pie sits in the field,",
-        "Tie blows loose in gentle wind,",
+        "Pie cools in the field,",
+        "Tie flutters loose in the wind,",
         "Sweet taste makes us smile."
       ]
     },
@@ -270,7 +366,11 @@
       "unit": 25,
       "label": "split digraph o-e",
       "targetSound": "o-e",
-      "words": ["home", "nose", "rope"],
+      "words": [
+        "home",
+        "nose",
+        "rope"
+      ],
       "haiku": [
         "Home feels warm and safe,",
         "Nose smells cookies from the stove,",
@@ -281,10 +381,14 @@
       "unit": 26,
       "label": "vowel digraph oa",
       "targetSound": "oa",
-      "words": ["boat", "coat", "float"],
+      "words": [
+        "boat",
+        "coat",
+        "float"
+      ],
       "haiku": [
         "Boat floats on blue sea,",
-        "Coat keeps warm in chilly breeze,",
+        "Coat warms in the chilly breeze,",
         "Waves rock soft and slow."
       ]
     },
@@ -292,18 +396,26 @@
       "unit": 27,
       "label": "vowel digraph ow",
       "targetSound": "ow",
-      "words": ["cow", "snow", "window"],
+      "words": [
+        "cow",
+        "snow",
+        "window"
+      ],
       "haiku": [
-        "Cow stands under snow,",
-        "Window shows the white world bright,",
-        "Cold wind blows outside."
+        "Cow stands in white snow,",
+        "Window shows the bright cold world,",
+        "Wind blows sharp outside."
       ]
     },
     {
       "unit": 28,
       "label": "split digraph u-e",
       "targetSound": "u-e",
-      "words": ["cube", "flute", "tube"],
+      "words": [
+        "cube",
+        "flute",
+        "tube"
+      ],
       "haiku": [
         "Cube of ice feels cold,",
         "Flute plays tunes so sweet and clear,",
@@ -314,21 +426,29 @@
       "unit": 29,
       "label": "vowel digraph ue",
       "targetSound": "ue",
-      "words": ["blue", "glue", "true"],
+      "words": [
+        "blue",
+        "glue",
+        "true"
+      ],
       "haiku": [
         "Blue sky shines so true,",
-        "True hearts tightly together,",
-        "Friends stay close and kind."
+        "True hearts hold each other close,",
+        "Friends stay kind and near."
       ]
     },
     {
       "unit": 30,
       "label": "ng nasal",
       "targetSound": "ng",
-      "words": ["ring", "sing", "king"],
+      "words": [
+        "ring",
+        "sing",
+        "king"
+      ],
       "haiku": [
-        "King holds a gold ring,",
-        "Knights gathering together,",
+        "King wears golden ring,",
+        "Knights gather with steady cheer,",
         "Bells ring loud and clear."
       ]
     }
