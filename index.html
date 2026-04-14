@@ -64,6 +64,10 @@
         '<strong>Activity I:</strong> tap a flashcard to hear the word.<br />' +
         '<strong>Activity II:</strong> parent reads the riddle aloud; child taps the correct card.';
 
+      var BOOK3_INSTRUCTIONS =
+        '<strong>Parent:</strong> read the haiku aloud slowly and with feeling (2\u20133 times).<br />' +
+        '<strong>Child:</strong> listen carefully and clap once every time you hear a word with the target sound.';
+
       function getBookFromUrl() {
         var params = new URLSearchParams(window.location.search);
         var book = parseInt(params.get('book') || '1', 10);
@@ -120,7 +124,7 @@
 
       // ── Book 2: Unit grid (same tile style as Book 1 letter grid) ────────────
 
-      function buildUnitGrid(units) {
+      function buildUnitGrid(units, book) {
         clearGrid();
         grid.className = 'letter-grid';
 
@@ -128,13 +132,21 @@
           var tile = document.createElement('div');
           tile.className = 'letter-tile enabled';
 
-          tile.innerHTML =
-            /* Reuse letter-label/letter-tile CSS from Book 1 — same visual treatment. */
-            '<span class="letter-label">U' + unit.unit + '</span>' +
-            '<div class="letter-links">' +
-            '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Act I</a>' +
-            '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Act II</a>' +
-            '</div>';
+          if (book === 2) {
+            tile.innerHTML =
+              '<span class="letter-label">U' + unit.unit + '</span>' +
+              '<div class="letter-links">' +
+              '<a class="btn btn-sm" href="./activity1.html?book=2&amp;unit=' + unit.unit + '">Act I</a>' +
+              '<a class="btn btn-sm secondary" href="./activity2.html?book=2&amp;unit=' + unit.unit + '">Act II</a>' +
+              '</div>';
+          } else {
+            // Book 3: show blend/digraph label and link to haiku activity
+            tile.innerHTML =
+              '<span class="letter-label blend-label">' + unit.label + '</span>' +
+              '<div class="letter-links">' +
+              '<a class="btn btn-sm" href="./activity-haiku.html?book=3&amp;unit=' + unit.unit + '">Haiku</a>' +
+              '</div>';
+          }
 
           grid.appendChild(tile);
         });
@@ -157,35 +169,56 @@
               return r.json();
             })
             .then(function (data) {
-              buildUnitGrid((data && data.units) || []);
+              buildUnitGrid((data && data.units) || [], 2);
             })
             .catch(function (err) {
               note.style.display = 'block';
               note.textContent = 'Book 2 content is not published yet (missing data/book-2.json).';
               console.warn('[Phonics Sparkle] Could not load book-2.json.', err);
-              buildUnitGrid([]);
+              buildUnitGrid([], 2);
             });
           return;
         }
 
-        // Book 1 / Book 3: letter grid
-        subtitle.innerHTML = 'Book ' + book + ' &mdash; choose a letter to begin.';
+        if (book === 3) {
+          subtitle.innerHTML = 'Book 3 &mdash; choose a unit to begin.';
+          if (instructions) instructions.innerHTML = BOOK3_INSTRUCTIONS;
+
+          fetch(BASE + '/data/book-3.json')
+            .then(function (r) {
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              return r.json();
+            })
+            .then(function (data) {
+              buildUnitGrid((data && data.units) || [], 3);
+            })
+            .catch(function (err) {
+              note.style.display = 'block';
+              note.textContent = 'Book 3 content is not published yet (missing data/book-3.json).';
+              console.warn('[Phonics Sparkle] Could not load book-3.json.', err);
+              buildUnitGrid([], 3);
+            });
+          return;
+        }
+
+        // Book 1: letter grid
+        subtitle.innerHTML = 'Book 1 &mdash; choose a letter to begin.';
         if (instructions) instructions.innerHTML = BOOK1_INSTRUCTIONS;
 
-        fetch(BASE + '/data/book-' + book + '.json')
+        fetch(BASE + '/data/book-1.json')
           .then(function (r) {
             if (!r.ok) throw new Error('HTTP ' + r.status);
             return r.json();
           })
           .then(function (data) {
             var enabled = Object.keys((data && data.letters) || {});
-            buildLetterGrid(enabled, book);
+            buildLetterGrid(enabled, 1);
           })
           .catch(function (err) {
             note.style.display = 'block';
-            note.textContent = 'Book ' + book + ' content is not published yet (missing data/book-' + book + '.json).';
-            console.warn('[Phonics Sparkle] Could not load book-' + book + '.json, no letters enabled.', err);
-            buildLetterGrid([], book);
+            note.textContent = 'Book 1 content is not published yet (missing data/book-1.json).';
+            console.warn('[Phonics Sparkle] Could not load book-1.json, no letters enabled.', err);
+            buildLetterGrid([], 1);
           });
       }
 

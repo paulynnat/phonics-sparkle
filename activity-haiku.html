@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 &mdash; Haiku Activity</title>
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="link" href="./index.html?book=3">&larr; Book 3</a>
+      <h1 id="title">Book 3 &mdash; Haiku Activity</h1>
+      <span id="unitProgress" class="unit-progress muted small"></span>
+    </header>
+
+    <div class="haiku-instructions card" id="instructionsBox">
+      <p class="muted small" id="instructions">Loading&hellip;</p>
+    </div>
+
+    <section class="haiku-card card">
+      <p class="haiku" id="haiku" aria-label="Haiku"></p>
+    </section>
+
+    <p class="muted small" style="margin-top:14px;">
+      Tap a word card to hear it. 🎧
+    </p>
+
+    <section id="cards" class="grid"></section>
+
+    <footer class="footer">
+      <a id="prevUnit" class="btn secondary" href="#">&larr; Previous</a>
+      <a href="./index.html?book=3" class="btn secondary">All Units</a>
+      <a id="nextUnit" class="btn" href="#">Next &rarr;</a>
+    </footer>
+  </main>
+
+  <script type="module" src="./js/book3-haiku.js"></script>
+</body>
+</html>

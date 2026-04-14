@@ -470,3 +470,38 @@ details.rai ul {
   margin: 6px 0 0 18px;
   padding: 0;
 }
+
+/* ── Book 3 Haiku Activity ─────────────────────────────────────────────────── */
+
+.haiku-instructions {
+  margin-bottom: 14px;
+}
+
+.haiku-card {
+  margin: 0 0 4px;
+}
+
+.haiku {
+  margin: 0;
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+.haiku-line {
+  display: block;
+}
+
+.unit-progress {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* Override letter-label size for multi-word blend/digraph tile labels */
+.blend-label {
+  font-size: 13px;
+  line-height: 1.2;
+}
