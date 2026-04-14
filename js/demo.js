@@ -1,5 +1,5 @@
 /**
- * demo.js — shared module for the publisher demo (Activity I & IV).
+ * demo.js — shared module for the publisher demo (Activity 1 & 4).
  *
  * Pages include this as:  <script type="module" src="./js/demo.js"></script>
  *
@@ -115,8 +115,9 @@ function currentPage() {
   const { book, letter } = resolveParams();
   const unitParam = parseInt(qs("unit") || "0", 10);
   const isBook2  = book === 2;
+  const isBook3  = book === 3;
 
-  if (!isBook2 && !letter) {
+  if (!isBook2 && !isBook3 && !letter) {
     throw new Error('Missing letter parameter. Use ?book=1&letter=r or legacy ?unit=r.');
   }
 
@@ -124,18 +125,18 @@ function currentPage() {
 
   let words, labelText, navQuery;
 
-  if (isBook2) {
-    // Book 2: load unit data by unit number
+  if (isBook2 || isBook3) {
+    // Book 2 & Book 3: load unit data by unit number
     const unitNum  = unitParam || 1;
     const unitData = (bookData.units || []).find(u => u.unit === unitNum);
     if (!unitData) {
-      throw new Error(`Unit ${unitNum} not found in book-2.json`);
+      throw new Error(`Unit ${unitNum} not found in book-${book}.json`);
     }
     words     = unitData.words;
-    labelText = `Unit ${unitNum}`;
-    navQuery  = `?book=2&unit=${unitNum}`;
+    labelText = isBook3 ? unitData.label : `Unit ${unitNum}`;
+    navQuery  = isBook3 ? `?book=3&unit=${unitNum}` : `?book=2&unit=${unitNum}`;
   } else {
-    // Book 1 / Book 3: load letter data
+    // Book 1: load letter data
     const letterData = bookData.letters?.[letter];
     if (!letterData) {
       throw new Error(`Letter "${letter}" not found in book ${book}.`);
@@ -150,7 +151,10 @@ function currentPage() {
   if (toA4) {
     if (isBook2) {
       toA4.href = `./activity2.html${navQuery}`;
-      toA4.textContent = "Go to Activity II \u2192";
+      toA4.textContent = "Go to Activity 4 \u2192";
+    } else if (isBook3) {
+      toA4.href = `./activity-haiku.html${navQuery}`;
+      toA4.textContent = "Go to Activity 4 \u2192";
     } else {
       toA4.href = `./activity4.html${navQuery}`;
     }
@@ -162,7 +166,7 @@ function currentPage() {
   // ── Update page title ────────────────────────────────────────────────────
   const titleEl = document.getElementById("title");
   if (titleEl) {
-    const actLabel = currentPage() === "a1" ? "Activity I" : "Activity IV";
+    const actLabel = currentPage() === "a1" ? "Activity 1" : "Activity 4";
     titleEl.textContent = `${labelText} \u2014 ${actLabel}`;
   }
 
@@ -171,7 +175,7 @@ function currentPage() {
   if (!cardsEl) return;
 
   if (currentPage() === "a1") {
-    // Activity I: every card click MUST play that word's audio.
+    // Activity 1: every card click MUST play that word's audio.
     words.forEach(word => {
       cardsEl.appendChild(makeCard(word, async () => {
         try {
@@ -190,7 +194,7 @@ function currentPage() {
   }
 
   if (currentPage() === "a4") {
-    // Activity IV: show prompt, correct → highlight + audio; incorrect → shake, no audio.
+    // Activity 4: show prompt, correct → highlight + audio; incorrect → shake, no audio.
     const activity4 = bookData.activity4?.[letter];
     const promptEl = document.getElementById("prompt");
     if (promptEl) {

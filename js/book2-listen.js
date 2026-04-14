@@ -1,5 +1,5 @@
 /**
- * book2-listen.js — Listen & Find (riddle) game for Book 2 (Activity II).
+ * book2-listen.js — Listen & Find (riddle) game for Book 2 (Activity 4).
  *
  * URL: activity2.html?book=2&unit=<n>
  *
@@ -114,7 +114,7 @@ function nextRiddle() {
   if (footerEl) {
     footerEl.innerHTML =
       `<a class="btn secondary" href="./index.html?book=2">\u2190 Back to Book 2</a>
-       <a class="btn" href="./activity1.html?book=2&amp;unit=${unitData.unit}">Activity I \u2192</a>`;
+       <a class="btn" href="./activity1.html?book=2&amp;unit=${unitData.unit}">Activity 1 \u2192</a>`;
     if (nextBtn) footerEl.appendChild(nextBtn);
   }
 
@@ -122,7 +122,7 @@ function nextRiddle() {
   riddles = buildRiddles(unitData);
 
   // Render flashcard grid
-  // Tapping a card checks correctness; correct cards play audio (like Book 1 Activity I).
+  // Tapping a card checks correctness; correct cards play audio (like Book 1 Activity 1).
   if (cardsEl) {
     cardsEl.innerHTML = "";
     unitData.words.forEach(word => {
