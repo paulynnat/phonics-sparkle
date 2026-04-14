@@ -98,7 +98,8 @@ function makeCard(word) {
   const instrEl = document.getElementById("instructions");
   if (instrEl) {
     instrEl.innerHTML =
-      `<strong>Parent:</strong> Read the haiku aloud slowly and repeat 2\u20133 times. Note the 5-7-5 syllable haiku structure.`;
+      `<strong>Parent:</strong> Read the haiku aloud slowly and repeat 2\u20133 times. Note the 5-7-5 syllable haiku structure.<br>` +
+      `<strong>Child:</strong> Listen carefully and clap once every time you hear a word with the <em>${unitData.targetSound}</em> sound.`;
   }
 
   // ── Haiku ──────────────────────────────────────────────────────────────────
