@@ -57,7 +57,7 @@ ls DEST_IMAGE_FOLDER/
 Because Phonics Sparkle is designed for children, we follow strict Responsible AI principles:
 
 - **Child Privacy Protection**: No personal data from children is collected, stored, or shared. All content is anonymous and focused solely on learning.  
-- **Pedagogical Soundness**: Activities are designed with early childhood literacy experts to ensure they are developmentally appropriate and effective for phonics learning.  
+- **Pedagogical Soundness**: Activities are designed to ensure they are developmentally appropriate and effective for phonics learning.  
 - **Age Appropriateness**: Visuals, words, and instructions are tailored for young learners, avoiding sensitive or unsuitable content.  
 - **Transparency**: Parents are provided with clear guides on how activities work and how they support phonics development.  
 - **Safety First**: All assets are created to be family‑friendly, cheerful, and free from harmful or misleading material.  
