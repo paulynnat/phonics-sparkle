@@ -1,4 +1,4 @@
-const CACHE = "phonics-sparkle-prek-u2-v1";
+const CACHE = "phonics-sparkle-prek-u2-v2";
 
 const FILES = [
   "./",

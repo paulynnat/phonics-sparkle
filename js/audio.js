@@ -1,4 +1,4 @@
-/** Play pre-generated clips. If a clip cannot start, speak with en-SG, then en-GB. */
+/** Play pre-generated clips. If a clip cannot start, speak with en-GB, then en-SG. */
 
 import { asset } from "./assets.js";
 import { CLIP_TEXT } from "./content.js";
@@ -31,8 +31,8 @@ function chooseVoice() {
   if (!synth) return null;
   const voices = synth.getVoices();
   return (
-    voices.find((voice) => /en[-_]SG/i.test(voice.lang)) ||
     voices.find((voice) => /en[-_]GB/i.test(voice.lang)) ||
+    voices.find((voice) => /en[-_]SG/i.test(voice.lang)) ||
     voices.find((voice) => /^en/i.test(voice.lang)) ||
     null
   );
@@ -48,7 +48,7 @@ function speakFallback(id) {
       utterance.voice = voice;
       utterance.lang = voice.lang;
     } else {
-      utterance.lang = "en-SG";
+      utterance.lang = "en-GB";
     }
     utterance.rate = 0.92;
     utterance.onend = () => resolve(true);

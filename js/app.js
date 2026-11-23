@@ -1,6 +1,7 @@
 import { playClip, playList, stopAudio } from "./audio.js";
 import { FIELDS, newFlight, tapFlight } from "./bee.js";
-import { PAGES, TALK_WORDS, UI } from "./content.js";
+import { PAGES, SAY_WORDS, UI } from "./content.js";
+import { asset } from "./assets.js";
 import { parseLaunch } from "./launch.js";
 import { chooseNudge } from "./nudges.js";
 import {
@@ -67,6 +68,7 @@ function syncFromUrl() {
   state.unit = launch.unit || 2;
   state.page = launch.page || state.page;
   state.field = launch.field || "main";
+  state.openPanel = Boolean(launch.openPanel);
   if (!changed) return;
   stopAudio();
   stopListening();
@@ -74,12 +76,12 @@ function syncFromUrl() {
   state.micNote = false;
   state.nudge = "";
   state.banner = false;
-    state.confirmClear = false;
-    state.focus = booted;
-    booted = true;
+  state.confirmClear = false;
+  state.focus = booted;
+  booted = true;
   if (launch.screen === "bee") state.flight = newFlight(FIELDS[state.field] || FIELDS.main);
-  state.autoplay = launch.screen === "page" && Boolean(PAGES[launch.page]?.autoplay);
-  state.playWord = launch.screen === "talk";
+  state.autoplay = launch.screen === "say" || launch.screen === "bee";
+  state.playWord = false;
 }
 
 function render() {
@@ -97,7 +99,7 @@ function render() {
     startPageAudio();
   } else if (state.playWord) {
     state.playWord = false;
-    playClip(TALK_WORDS[state.talkIndex]);
+    playClip(SAY_WORDS[state.talkIndex] || SAY_WORDS[0]);
   }
 }
 
@@ -279,14 +281,14 @@ function onSay() {
     return;
   }
   if (!speechSupported() || progress.mic.declined) return hadAGo("effort");
-  return finishListen(listenFor(TALK_WORDS[state.talkIndex]));
+  return finishListen(listenFor(SAY_WORDS[state.talkIndex] || SAY_WORDS[0]));
 }
 
 function onMicYes() {
   progress = { ...progress, mic: { noteSeen: true, declined: false } };
   saveProgress(localStorage, progress);
   state.micNote = false;
-  const pending = listenFor(TALK_WORDS[state.talkIndex]);
+  const pending = listenFor(SAY_WORDS[state.talkIndex] || SAY_WORDS[0]);
   render();
   return finishListen(pending);
 }
@@ -300,10 +302,10 @@ function onMicNo() {
 
 function onNext() {
   stopAudio();
-  state.talkIndex = (state.talkIndex + 1) % TALK_WORDS.length;
+  state.talkIndex = (state.talkIndex + 1) % SAY_WORDS.length;
   state.nudge = "";
   render();
-  playClip(TALK_WORDS[state.talkIndex]);
+  playClip(SAY_WORDS[state.talkIndex]);
 }
 
 async function onCopy() {
@@ -337,6 +339,7 @@ function onGate(form) {
     return;
   }
   unlockGrown(sessionStorage);
+  state.openPanel = true;
   state.gateMessage = "";
   render();
 }
@@ -349,8 +352,18 @@ app.addEventListener("click", (event) => {
   else if (act === "hear-page") startPageAudio();
   else if (act === "hear-one") {
     stopAudio();
-    highlight(el.dataset.id);
-    playClip(el.dataset.id).then(() => highlight(""));
+    const id = el.dataset.id;
+    const heard = SAY_WORDS.indexOf(id);
+    if (heard >= 0) {
+      state.talkIndex = heard;
+      const pic = app.querySelector("[data-ori-pic]");
+      if (pic) {
+        pic.src = asset(`art/${id}.png`);
+        pic.alt = id;
+      }
+    }
+    highlight(id);
+    playClip(id).then(() => highlight(""));
   } else if (act === "fly") onFly(el.dataset.id);
   else if (act === "say") onSay();
   else if (act === "mic-yes") onMicYes();

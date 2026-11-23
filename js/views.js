@@ -1,6 +1,6 @@
 import { asset } from "./assets.js";
 import { FIELDS } from "./bee.js";
-import { GATE, PAGES, TIP, TALK_WORDS, UI } from "./content.js";
+import { GATE, PAGES, SAY_WORDS, TABS, TIP, TALK_WORDS, UI } from "./content.js";
 import { makeCode, soundNote } from "./progress.js";
 import { glassSvg, hiveSvg, oriSvg } from "./icons.js";
 
@@ -17,18 +17,10 @@ function esc(value) {
 }
 
 function nav(current) {
-  const items = [
-    ["", UI.navHome, "home"],
-    ["book=prek&unit=2&play=talk", UI.navOri, "talk"],
-    ["book=prek&unit=2&play=bee", UI.navBee, "bee"],
-    ["book=prek&unit=2&play=garden", UI.navGarden, "garden"],
-  ];
-  return `<nav class="nav" aria-label="Play">${items
-    .map(
-      ([to, label, id]) =>
-        `<button type="button" data-act="nav" data-to="${to}"${current === id ? ' aria-current="page"' : ""}>${esc(label)}</button>`,
-    )
-    .join("")}</nav>`;
+  return `<nav class="nav" aria-label="Play">${TABS.map(
+    (tab) =>
+      `<button type="button" data-act="nav" data-to="${tab.to}"${current === tab.id ? ' aria-current="page"' : ""}>${esc(tab.label)}</button>`,
+  ).join("")}</nav>`;
 }
 
 export function bannerHtml() {
@@ -51,11 +43,36 @@ function pictureButton(id, extra = "") {
   </button>`;
 }
 
-function goButtons() {
-  return `<div class="go">
-    <button type="button" class="btn btn-green" data-act="nav" data-to="book=prek&unit=2&play=talk">${oriSvg()}<span>${esc(UI.talkTitle)}</span></button>
-    <button type="button" class="btn btn-orange" data-act="nav" data-to="book=prek&unit=2&play=bee"><img class="btn-img" src="${asset("art/bee.png")}" alt=""><span>${esc(UI.helpBee)}</span></button>
-  </div>`;
+function oriTurn(model) {
+  const word = SAY_WORDS[model.talkIndex] || SAY_WORDS[0];
+  const supported = model.speechOk;
+  const declined = model.progress.mic.declined || !supported;
+  let control = "";
+  if (model.micNote) {
+    control = `<div class="note" role="dialog" aria-labelledby="note-title">
+      <h2 id="note-title">${esc(UI.noteTitle)}</h2>
+      <p>${esc(UI.noteBody)}</p>
+      <p>${esc(UI.noteChoice)}</p>
+      <button type="button" class="btn btn-green" data-act="mic-yes">${esc(UI.micYes)}</button>
+      <button type="button" class="btn btn-quiet" data-act="mic-no">${esc(UI.micNo)}</button>
+    </div>`;
+  } else if (declined) {
+    control = `${supported ? "" : `<p>${esc(UI.noMic)}</p>`}
+      <button type="button" class="btn btn-green" data-act="said-it">${esc(UI.iSaid)}</button>`;
+  } else {
+    control = `<button type="button" class="btn btn-green" data-act="say">${esc(UI.sayWord)}</button>`;
+  }
+  return `<section class="ori-card">
+    <div class="talk-row">
+      ${oriSvg()}
+      <button type="button" class="pic-card" data-act="hear-one" data-id="${word}" data-say="${word}">
+        <img data-ori-pic src="${asset(`art/${word}.png`)}" alt="${esc(word)}">
+      </button>
+    </div>
+    <p data-status>${esc(model.listening ? UI.listening : UI.yourTurn)}</p>
+    <p class="nudge" data-nudge>${esc(model.nudge || "")}</p>
+    <div class="actions">${control}</div>
+  </section>`;
 }
 
 function cell(id, mode, flight, field, index) {
@@ -145,6 +162,23 @@ function home() {
   </section>`;
 }
 
+function sayScreen(model) {
+  const page = PAGES[13];
+  const pictures = page.pictures.map((id) => pictureButton(id)).join("");
+  return `<section class="screen tone-green">
+    ${model.banner ? bannerHtml() : ""}
+    <p class="chip">${esc(page.family)}</p>
+    <h1>${glassMark(13)}${esc(page.title)}</h1>
+    <div class="pic-row">${pictures}</div>
+    <p class="hint">${esc(page.child)}</p>
+    <div class="actions">
+      <button type="button" class="btn btn-green" data-act="hear-page" data-say="sound-b">${esc(UI.hearIt)}</button>
+    </div>
+    ${oriTurn(model)}
+    ${grownDetails(page.grown)}
+  </section>`;
+}
+
 function pageScreen(model) {
   const page = PAGES[model.page];
   const banner = model.banner ? bannerHtml() : "";
@@ -155,8 +189,9 @@ function pageScreen(model) {
       <h1>${esc(page.title)}</h1>
       <p data-status>${esc(page.child)}</p>
       ${fieldHtml(FIELDS.main, "listen", null)}
-      <button type="button" class="btn btn-green" data-act="hear-page" data-say="sound-b">${esc(UI.hearIt)}</button>
-      <div class="go">${goButtons()}</div>
+      <div class="actions">
+        <button type="button" class="btn btn-green" data-act="hear-page" data-say="sound-b">${esc(UI.hearIt)}</button>
+      </div>
       ${grownDetails(page.grown)}
     </section>`;
   }
@@ -182,19 +217,19 @@ function pageScreen(model) {
     model.page === 12 || model.page === 14
       ? `<p class="big-letters" aria-hidden="true"><span class="cap">B</span><span>b</span></p>`
       : "";
+  const pictureWrap = model.page === 13 ? "pic-row" : "stack";
   return `<section class="screen tone-${page.tone}">
     ${banner}
     <p class="chip">${esc(page.family)}</p>
     <h1>${glassMark(model.page)}${esc(page.title)}</h1>
     ${letters}
     ${model.page === 12 ? strip() : ""}
-    <div class="stack">${pictures}</div>
-    <p>${esc(page.child)}</p>
+    <div class="${pictureWrap}">${pictures}</div>
+    <p class="hint">${esc(page.child)}</p>
     <div class="actions">
       ${model.page === 12 ? `<button type="button" class="btn btn-green" data-act="hear-one" data-id="bee">${esc(UI.hearName)}</button>` : ""}
       <button type="button" class="btn btn-green" data-act="hear-page" data-say="sound-b">${model.page === 12 ? esc(UI.hearSound) : esc(UI.hearIt)}</button>
     </div>
-    ${model.page === 13 || model.page === 14 ? `<div class="go">${goButtons()}</div>` : ""}
     ${grownDetails(page.grown)}
   </section>`;
 }
@@ -255,7 +290,9 @@ function bee(model) {
     <h1>${esc(UI.beeTitle)}</h1>
     <p data-status>${esc(message)}</p>
     ${fieldHtml(field, "play", model.flight)}
-    <button type="button" class="btn btn-quiet" data-act="hear-page">${esc(UI.hearIt)}</button>
+    <div class="actions">
+      <button type="button" class="btn btn-quiet" data-act="hear-page">${esc(UI.hearIt)}</button>
+    </div>
     <div class="done" data-done ${model.flight.done ? "" : "hidden"}>
       ${model.field === "main" ? `<button type="button" class="btn btn-orange" data-act="bonus">${esc(UI.oneMore)}</button>` : ""}
       <button type="button" class="btn btn-green" data-act="replay">${esc(UI.flyAgain)}</button>
@@ -284,7 +321,67 @@ function garden(model) {
     <div class="plots">${plots}</div>
     <p>${esc(earned ? UI.keptGoing : UI.gardenWait)}</p>
     <p class="quiet">${esc(UI.gardenMore)}</p>
+    <details class="grown-panel"${model.openPanel ? " open" : ""}>
+      <summary>${esc(UI.forGrown)}</summary>
+      ${grownTools(model)}
+    </details>
   </section>`;
+}
+
+function pageSwitcher() {
+  return `<h2>${esc(UI.choose)}</h2>
+    <p class="quiet">${esc(UI.bookLabel)}</p>
+    <div class="choices">
+      <button type="button" data-act="nav" data-to="book=prek&unit=2&page=13">${esc(UI.prek)}</button>
+      <button type="button" data-act="nav" data-to="book=k1">${esc(UI.k1)}</button>
+      <button type="button" data-act="nav" data-to="book=k2">${esc(UI.k2)}</button>
+    </div>
+    <p class="quiet">${esc(UI.pageWord)}</p>
+    <div class="choices choices-stack">
+      ${[12, 13, 14, 15, 16]
+        .map(
+          (page) =>
+            `<button type="button" data-act="nav" data-to="book=prek&unit=2&page=${page}">${page} ${esc(PAGES[page].title)}</button>`,
+        )
+        .join("")}
+    </div>`;
+}
+
+function grownTools(model) {
+  if (!model.grown) {
+    return `<form class="gate" data-form="gate">
+      <label for="gate-answer">${esc(GATE.question)}</label>
+      <input id="gate-answer" name="answer" inputmode="numeric" autocomplete="off" enterkeyhint="done">
+      <button type="submit" class="btn btn-green">${esc(UI.gateOpen)}</button>
+      <p data-status>${esc(model.gateMessage || "")}</p>
+    </form>`;
+  }
+  const code = makeCode(model.progress);
+  return `<p class="sound-note">${esc(soundNote(model.progress))}</p>
+    <p>${esc(UI.stickerRule)}</p>
+    <h2>${esc(UI.codeTitle)}</h2>
+    <p>${esc(UI.codeBody)}</p>
+    <label>${esc(UI.codeThis)}
+      <textarea readonly data-code>${esc(code)}</textarea>
+    </label>
+    <div class="actions">
+      <button type="button" class="btn btn-quiet" data-act="copy-code">${esc(UI.copyCode)}</button>
+    </div>
+    <label>${esc(UI.codeOther)}
+      <textarea data-paste></textarea>
+    </label>
+    <div class="actions">
+      <button type="button" class="btn btn-green" data-act="restore">${esc(UI.restore)}</button>
+    </div>
+    <p data-restore-msg>${esc(model.restoreMessage || "")}</p>
+    ${
+      model.confirmClear
+        ? `<p>${esc(UI.clearAsk)}</p><div class="actions"><button type="button" class="btn btn-quiet" data-act="clear-yes">${esc(UI.clearYes)}</button></div>`
+        : `<div class="actions"><button type="button" class="btn btn-quiet" data-act="clear">${esc(UI.clear)}</button></div>`
+    }
+    ${pageSwitcher()}
+    <h2>${esc(UI.tipTitle)}</h2>
+    <p>${esc(TIP.body)}</p>`;
 }
 
 function later(model) {
@@ -297,7 +394,7 @@ function later(model) {
     <h1>${esc(UI.appName)}</h1>
     <p class="lead">${esc(message)}</p>
     <p>${esc(UI.playThis)}</p>
-    <button type="button" class="btn btn-green" data-act="nav" data-to="">${esc(UI.back)}</button>
+    <button type="button" class="btn btn-green" data-act="nav" data-to="book=prek&unit=2&page=13">${esc(UI.back)}</button>
   </section>`;
 }
 
@@ -344,21 +441,18 @@ function grown(model) {
 }
 
 function body(model) {
-  if (model.screen === "home") return home();
+  if (model.screen === "say" || model.screen === "home" || model.screen === "talk") return sayScreen(model);
   if (model.screen === "page") return pageScreen(model);
-  if (model.screen === "talk") return talk(model);
   if (model.screen === "bee") return bee(model);
-  if (model.screen === "garden") return garden(model);
-  if (model.screen === "grown") return grown(model);
+  if (model.screen === "garden" || model.screen === "grown") return garden(model);
   return later(model);
 }
 
 export function renderApp(model) {
-  const current =
-    model.screen === "talk" || model.screen === "bee" || model.screen === "garden" ? model.screen : "home";
+  const current = model.screen === "bee" ? "bee" : model.screen === "garden" || model.screen === "grown" ? "garden" : "say";
   return `<div class="shell">
     <header class="top">
-      <button type="button" class="brand" data-act="nav" data-to="">${oriSvg()}<span>${esc(UI.appName)}</span></button>
+      <button type="button" class="brand" data-act="nav" data-to="book=prek&unit=2&page=13">${oriSvg()}<span>${esc(UI.appName)}</span></button>
       <span class="unit-pill">${esc(UI.unitLabel)}</span>
       <span class="letter-pill">${esc(UI.letter)}</span>
     </header>
