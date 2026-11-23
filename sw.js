@@ -1,4 +1,4 @@
-const CACHE = "phonics-sparkle-prek-u2-v2";
+const CACHE = "phonics-sparkle-prek-u2-v3";
 
 const FILES = [
   "./",
@@ -31,6 +31,7 @@ const FILES = [
   "art/bun.png",
   "art/cat.png",
   "art/dog.png",
+  "art/garden-banner.jpg",
   "art/hen.png",
   "art/ox.png",
   "art/sun.png",

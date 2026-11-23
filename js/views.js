@@ -319,8 +319,7 @@ function garden(model) {
     <h1>${esc(UI.gardenTitle)}</h1>
     <p>${esc(UI.gardenLead)}</p>
     <div class="plots">${plots}</div>
-    <p>${esc(earned ? UI.keptGoing : UI.gardenWait)}</p>
-    <p class="quiet">${esc(UI.gardenMore)}</p>
+    <img class="garden-banner" src="${asset("art/garden-banner.jpg")}" alt="A sunny garden">
     <details class="grown-panel"${model.openPanel ? " open" : ""}>
       <summary>${esc(UI.forGrown)}</summary>
       ${grownTools(model)}
