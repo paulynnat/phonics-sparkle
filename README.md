@@ -1,75 +1,76 @@
 # Phonics Sparkle
 
-Welcome to **Phonics Sparkle** — the playful evolution of our phonics app! This Version 2 build introduces brand‑new assets, refreshed designs, and a brighter, more engaging experience for early readers.
+A quiet companion for the Phonics Sparkle books. This demo is **Pre-K Book 1, Unit 2, the letter Bb**. A child can hear the page, talk to Ori, help the bee fly home, and grow one sticker.
 
-## ✨ Overview
-Phonics Sparkle is designed to make learning phonics fun, interactive, and visually delightful. With bold sticker‑style illustrations, cheerful themes, and interactive activities, children can explore sounds, words, and pictures in a way that truly sparkles.
+The earlier flashcard demo is still in the history of `main` (the commit before this change). It is not what this branch publishes.
 
-## 🌟 Key Features
-- **Unit‑based progression**: Each letter introduces recognition, writing, playful activity, and CVC word practice.  
-- **Interactive Activities (All 26 Letters)**:  
-  - **Activity I**: flashcards per letter (word + image + audio).  
-  - **Activity IV**: Parent reads a nonsense sentence aloud; child chooses the correct word from Activity I.  
-- **Playful Learning**: Child‑friendly themes that encourage exploration and creativity.  
-- **Parent‑Focused Guides**: Clear instructions to support at‑home phonics practice.  
-- **Engagement Boost**: Activities that combine reading, recognition, and coloring for hands‑on fun.  
+## Open it
 
-## 📁 Asset Locations
-All word assets live in two root‑level folders:
-
-| Folder | Contents | Naming convention |
-|---|---|---|
-| `DEST_IMAGE_FOLDER/` | Word illustration images | `<word>.png` (e.g. `rat.png`) |
-| `DEST_AUDIO_FOLDER/` | Word pronunciation audio | `<word>.mp3` (or `.wav` for `fan` and `walk`) |
-
-**Rules:**
-- File names are lowercase and match the word exactly (e.g. `bee.png`, `bee.mp3`).
-- Most audio files use `.mp3`; `fan.wav` and `walk.wav` are the exceptions and are handled automatically by the app.
-- Word lists and letter–word mappings are defined in `data/book-1.json`. Adding a new letter entry there will automatically unlock that letter on the home page.
-
-## 🗂 Data Files
-- **`data/book-1.json`** — Defines all letter entries (words list) and Activity IV prompts/answers for Book 1. The home page reads this file at load time to determine which letters are enabled.
-
-## 🚀 Getting Started
-1. Clone or download the repo.  
-2. Serve the repo root with any static HTTP server (required for `fetch()` to load JSON), e.g.:  
-   ```bash
-   npx serve .
-   # or
-   python -m http.server 8080
-   ```
-3. Open `http://localhost:<port>/` and explore all 26 letter activities.
-
-> **GitHub Pages**: the site is published at https://paulynnat.github.io/phonics-sparkle/ — all letters are now unlocked.
-
-## 🔍 Validating Assets
-To check that every word in `data/book-1.json` has a matching image and audio file, compare the word list in `book-1.json` against the files in `DEST_IMAGE_FOLDER/` and `DEST_AUDIO_FOLDER/`. For example:
+The app is static. Paths are relative, so it can be served from a subfolder such as GitHub Pages.
 
 ```bash
-# List all words defined in the JSON
-node -e "const d=require('./data/book-1.json'); Object.values(d.letters).forEach(l=>l.words.forEach(w=>console.log(w)))"
-
-# Compare against image files
-ls DEST_IMAGE_FOLDER/
+python -m http.server 8080
 ```
 
-## 🛡 Responsible AI Guidelines
-Because Phonics Sparkle is designed for children, we follow strict Responsible AI principles:
+Then open `http://localhost:8080/`.
 
-- **Child Privacy Protection**: No personal data from children is collected, stored, or shared. All content is anonymous and focused solely on learning.  
-- **Pedagogical Soundness**: Activities are designed to ensure they are developmentally appropriate and effective for phonics learning.  
-- **Age Appropriateness**: Visuals, words, and instructions are tailored for young learners, avoiding sensitive or unsuitable content.  
-- **Transparency**: Parents are provided with clear guides on how activities work and how they support phonics development.  
-- **Safety First**: All assets are created to be family‑friendly, cheerful, and free from harmful or misleading material.  
+Published site: https://paulynnat.github.io/phonics-sparkle/
 
-## 🤝 Contributing
-We welcome contributions from educators, designers, and developers who share our vision of playful, responsible phonics learning. To contribute:
+Listening pages in the book use a QR code. Only pages 13 and 15 have one.
 
-1. **Fork the repo** and create a new branch for your changes.  
-2. **Follow Responsible AI principles** — ensure all contributions are child‑safe, privacy‑respecting, and pedagogically sound.  
-3. **Document your changes clearly** so parents and collaborators understand the purpose and impact.  
-4. **Submit a pull request** with a description of your contribution and how it supports early reading engagement.  
+- Say it, see it: `index.html?book=prek&unit=2&page=13`
+- Sound maze: `index.html?book=prek&unit=2&page=15`
 
-Please note: Contributions that do not align with child‑safety or pedagogical standards will not be accepted.
+Each of those screens says the pictures and models the b sound. A grown-up can also open the app and choose the book, unit, and page. K1, K2, and the other letters are not in this demo.
 
-**Tagline:** *Enabling learning through technology.*
+## What a child can do
+
+There are no timers, scores, or accounts.
+
+- **Talk to Ori.** Ori shows a picture and the child says the word. The first time, a short note asks the grown-up before the microphone is used. The voice is not saved. If the microphone is unavailable, the child can still have a go.
+- **Bee flight.** Tap pictures that start with the b sound. The path is bag, bed, bun, box, bug, then the hive. Cat, dog, sun, hen, ox, and axe are other pictures. A miss is a soft "Try another." One more field uses the same pictures in a new layout. A second set of pictures is not included, because each new picture needs an OK first.
+- **Sticker garden.** The Bb sticker is for keeping going. It appears after the bee gets home, or after three tries with Ori. The other letters are resting.
+
+Picture words are spoken. They are not printed as words for the child to read. Letters taught in the book so far are a and b.
+
+## Grown-ups
+
+Progress stays in local storage on the device. There is no child account.
+
+The grown-up page sits behind a small gate: "What is 8 plus 7?" It shows the teacher's tip for Bb, a plain note on how the sound is going, and a private restore code. The code holds the sticker and a few counts. It does not hold a name or a voice. On a new device, open Grown-ups, pass the gate, and paste the code.
+
+## Ori's words
+
+Ori uses a fixed list of kind lines, including "Nearly. Pop your lips a bit more." The list works on static GitHub Pages with no server.
+
+The code can later call a small proxy (`server/nudge-proxy.mjs`). That proxy is **off**. The app does not know a Gemini URL until `PROXY.enabled` and `PROXY.url` in `js/content.js` are changed on purpose. The proxy reads `GEMINI_API_KEY` from the environment and will only return a line from the fixed list. Do not put the key in the repository or in client code.
+
+```bash
+GEMINI_API_KEY=your-key node server/nudge-proxy.mjs
+```
+
+Without the key, the proxy still returns a fixed line. The Pages site does not start this server.
+
+## Sound
+
+Clips were made with the `en-SG-LunaNeural` voice (Standard Singapore English) through the free [edge-tts](https://github.com/rany2/edge-tts) library. The rate is a little slower than the default. The pitch is not raised. The short b sound is the opening of that voice, trimmed so it does not bloom into a long "uh".
+
+If a clip cannot play, the browser speech API is used, preferring an `en-SG` voice and then `en-GB`. The short b sound is not replaced with the letter name.
+
+A voice drift check is not part of this demo.
+
+## Offline
+
+After the first visit, a service worker stores the pages, pictures, and sounds so they can open again without a connection, where the browser allows it.
+
+## Words on the screen
+
+British spelling. Warm, short lines. No nonsense words. No eye icon. A magnifying glass marks "look" on Say it, see it.
+
+## Checks
+
+```bash
+npm test
+```
+
+That runs the logic checks (QR parsing, the bee path, the sticker, the restore code, and the nudge bank). It does not need a browser.
