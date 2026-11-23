@@ -1,30 +1,40 @@
 /** Read book, unit, and page from a QR link or the grown-up picker. */
 
-const PLAY = new Set(["talk", "bee", "garden", "grown"]);
-const PAGES = new Set(["12", "13", "14", "15", "16"]);
+const BOOK_PAGES = new Set(["12", "13", "14", "15", "16"]);
+
+function base(extra) {
+  return {
+    book: "prek",
+    unit: 2,
+    page: 13,
+    field: "main",
+    openPanel: false,
+    ...extra,
+  };
+}
 
 export function parseLaunch(search) {
-  const q = new URLSearchParams(search || "");
+  const q = new URLSearchParams(String(search || "").replace(/^\?/, ""));
   const book = (q.get("book") || "").toLowerCase();
   const unit = q.get("unit");
   const page = q.get("page");
   const play = (q.get("play") || "").toLowerCase();
   const field = q.get("field") === "bonus" ? "bonus" : "main";
+  const ours = (!book || book === "prek") && (!unit || unit === "2");
 
-  if (book && book !== "prek") return { screen: "later", book };
-  if (book === "prek" && unit && unit !== "2") return { screen: "later", book, unit };
-  if (book === "prek" && unit === "2" && page && !PAGES.has(page) && !play) {
-    return { screen: "later", book, unit, page };
+  if (book && book !== "prek") return base({ screen: "later", book, unit: unit || 2 });
+  if (book === "prek" && unit && unit !== "2") return base({ screen: "later", book, unit });
+  if (ours && page && !BOOK_PAGES.has(page) && !play) {
+    return base({ screen: "later", page });
   }
-
-  const demo = (!book || book === "prek") && (!unit || unit === "2");
-  if (demo && PLAY.has(play)) {
-    return { screen: play, book: "prek", unit: 2, field };
+  if (ours && (page === "15" || play === "bee")) {
+    return base({ screen: "bee", page: 15, field });
   }
-
-  if (book === "prek" && unit === "2" && PAGES.has(page)) {
-    return { screen: "page", book: "prek", unit: 2, page: Number(page) };
+  if (ours && (play === "garden" || play === "grown")) {
+    return base({ screen: "garden", openPanel: play === "grown" });
   }
-
-  return { screen: "home", book: "prek", unit: 2 };
+  if (ours && ["12", "14", "16"].includes(page)) {
+    return base({ screen: "page", page: Number(page) });
+  }
+  return base({ screen: "say", page: 13 });
 }

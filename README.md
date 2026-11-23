@@ -18,10 +18,10 @@ Published site: https://paulynnat.github.io/phonics-sparkle/
 
 Listening pages in the book use a QR code. Only pages 13 and 15 have one.
 
-- Say it, see it: `index.html?book=prek&unit=2&page=13`
-- Sound maze: `index.html?book=prek&unit=2&page=15`
+- Say it, see it: `index.html?book=prek&unit=2&page=13` (also the home screen)
+- Bee flight, the sound maze: `index.html?book=prek&unit=2&page=15`
 
-Each of those screens says the pictures and models the b sound. A grown-up can also open the app and choose the book, unit, and page. K1, K2, and the other letters are not in this demo.
+Each of those screens says the pictures and models the b sound. The bottom bar has three tabs: Say it, Bee flight, and Garden. A grown-up can choose another book, unit, or page from the Garden tab. K1, K2, and the other letters are not in this demo.
 
 ## What a child can do
 
@@ -37,7 +37,7 @@ Picture words are spoken. They are not printed as words for the child to read. L
 
 Progress stays in local storage on the device. There is no child account.
 
-The grown-up page sits behind a small gate: "What is 8 plus 7?" It shows the teacher's tip for Bb, a plain note on how the sound is going, and a private restore code. The code holds the sticker and a few counts. It does not hold a name or a voice. On a new device, open Grown-ups, pass the gate, and paste the code.
+The Garden tab has a For grown-ups panel. It sits behind a small gate: "What is 8 plus 7?" Inside are the teacher's tip for Bb, a plain note on how the sound is going, a private restore code, and the book, unit, and page switcher. The code holds the sticker and a few counts. It does not hold a name or a voice. On a new device, open Garden, open For grown-ups, pass the gate, and paste the code.
 
 ## Ori's words
 
@@ -53,9 +53,9 @@ Without the key, the proxy still returns a fixed line. The Pages site does not s
 
 ## Sound
 
-Clips were made with the `en-SG-LunaNeural` voice (Standard Singapore English) through the free [edge-tts](https://github.com/rany2/edge-tts) library. The rate is a little slower than the default. The pitch is not raised. The short b sound is the opening of that voice, trimmed so it does not bloom into a long "uh".
+Clips for this Casco demo were made with the `en-GB-SoniaNeural` voice through the free [edge-tts](https://github.com/rany2/edge-tts) library, at a rate of -5%. The pitch is not raised. The short b sound is the opening of that voice, trimmed so it stays a short pop. It is not the letter name, and it is not a long "uh".
 
-If a clip cannot play, the browser speech API is used, preferring an `en-SG` voice and then `en-GB`. The short b sound is not replaced with the letter name.
+If a clip cannot play, the browser speech API is used, preferring an `en-GB` voice and then `en-SG`. The short b sound is not replaced with the letter name.
 
 A voice drift check is not part of this demo.
 

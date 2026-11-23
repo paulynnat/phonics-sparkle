@@ -4,7 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { DISTRACTORS, FIELDS, MAIN_PATH, newFlight, tapFlight } from "../js/bee.js";
-import { CLIP_TEXT, LINE_BANK, PAGES, PROXY, allCopy, bankLine, isBankLine, judgeHearing } from "../js/content.js";
+import { CLIP_TEXT, LINE_BANK, PAGES, PROXY, TABS, allCopy, bankLine, isBankLine, judgeHearing } from "../js/content.js";
 import { parseLaunch } from "../js/launch.js";
 import { PROXY as nudgeProxy, chooseNudge, proxyPayload } from "../js/nudges.js";
 import {
@@ -33,22 +33,25 @@ function memory() {
   };
 }
 
-test("QR links open the listening pages", () => {
+test("QR links open Say it and Bee flight", () => {
   const say = parseLaunch("?book=prek&unit=2&page=13");
-  assert.equal(say.screen, "page");
+  assert.equal(say.screen, "say");
   assert.equal(say.page, 13);
-  const maze = parseLaunch("book=prek&unit=2&page=15");
-  assert.equal(maze.screen, "page");
-  assert.equal(maze.page, 15);
-  assert.equal(parseLaunch("?book=PreK&unit=2&page=13").page, 13);
-  assert.equal(parseLaunch("").screen, "home");
+  const flight = parseLaunch("book=prek&unit=2&page=15");
+  assert.equal(flight.screen, "bee");
+  assert.equal(flight.page, 15);
+  assert.equal(parseLaunch("?book=PreK&unit=2&page=13").screen, "say");
+  assert.equal(parseLaunch("").screen, "say");
+  assert.equal(parseLaunch("?book=prek&unit=2&play=talk").screen, "say");
+  assert.equal(parseLaunch("?book=prek&unit=2&play=bee&field=bonus").screen, "bee");
+  assert.equal(parseLaunch("?book=prek&unit=2&play=bee&field=bonus").field, "bonus");
   assert.equal(parseLaunch("?book=k1").screen, "later");
   assert.equal(parseLaunch("?book=prek&unit=4").screen, "later");
   assert.equal(parseLaunch("?book=prek&unit=2&page=99").screen, "later");
-  assert.equal(parseLaunch("?book=prek&unit=2&play=bee&field=bonus").field, "bonus");
   assert.equal(PAGES[13].autoplay, true);
   assert.equal(PAGES[15].autoplay, true);
-  assert.equal(PAGES[12].autoplay, false);
+  assert.deepEqual(TABS.map((tab) => tab.label), ["Say it", "Bee flight", "Garden"]);
+  assert.equal(TABS.some((tab) => tab.label === "Home" || tab.label === "Ori"), false);
 });
 
 test("bee path is bag, bed, bun, box, bug, and distractors stay off the path", () => {

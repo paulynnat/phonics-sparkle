@@ -58,10 +58,9 @@ export const UI = {
   micYes: "Turn on the microphone",
   micNo: "Not now",
   noMic: "This browser cannot use the microphone. You can still have a go.",
-  navHome: "Home",
-  navOri: "Ori",
-  navBee: "Bee",
-  navGarden: "Garden",
+  tabSay: "Say it",
+  tabBee: "Bee flight",
+  tabGarden: "Garden",
   gardenLead: "This sticker is for keeping going.",
   gardenWait: "Have a good try with Ori or the bee.",
   gardenMore: "More letters are resting.",
@@ -145,6 +144,14 @@ export const LINE_BANK = {
 };
 
 export const TALK_WORDS = ["bee", "bug", "bag", "bed", "bun", "box"];
+
+export const SAY_WORDS = ["bee", "bug", "bag"];
+
+export const TABS = [
+  { id: "say", label: "Say it", to: "book=prek&unit=2&page=13" },
+  { id: "bee", label: "Bee flight", to: "book=prek&unit=2&page=15" },
+  { id: "garden", label: "Garden", to: "book=prek&unit=2&play=garden" },
+];
 
 export const PAGES = {
   12: {
